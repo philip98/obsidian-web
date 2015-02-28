@@ -26,4 +26,24 @@ class Student < ActiveRecord::Base
 	def return_base_set(book)
 		self.base_sets.find_by(:book => book).destroy
 	end
+
+	def Student.form_to_grad(form)
+		if Time.current.mon >= 9
+			13 + Time.current.year - form
+		else
+			12 + Time.current.year - form
+		end
+	end
+
+	def Student.grad_to_form(grad)
+		if Time.current.mon >= 9
+			13 + Time.current.year - grad
+		else
+			12 + Time.current.year - grad
+		end
+	end
+
+	def display_class
+		"#{Student.grad_to_form(graduation_year)}#{class_letter}"
+	end
 end
