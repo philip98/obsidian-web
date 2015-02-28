@@ -1,0 +1,19 @@
+<% provide(:title, "Kontoeinstellungen") %>
+<h1>Schulkonto bearbeiten</h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_for @school do |f| %>
+			<%= render :partial => "shared/error_messages", :locals => {:data => @school} %>
+
+			<%= f.label :password, "Passwort" %>
+			<%= f.password_field :password, :class => "form-control" %>
+
+			<%= f.label :password_confirmation, "Bestätigung" %>
+			<%= f.password_field :password_confirmation, :class => "form-control" %>
+
+			<%= f.submit "Passwort ändern", :class => "btn btn-primary" %>
+		<% end %>
+		<%= link_to "Konto löschen", @school, :method => "delete", :data => {:confirm => "Sind Sie sicher?"}, :class => "btn btn-danger form-control", :id => "delete_account" %>
+	</div>
+</div>
