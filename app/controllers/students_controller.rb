@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
 	before_action :correct_school, :only => [:edit, :update, :show, :destroy]
 
 	def index
-		@students = current_school.students.paginate(:page => params[:page])
+		@students = current_school.students.order("graduation_year DESC", "class_letter").paginate(:page => params[:page])
 	end
 
 	def show_class
@@ -22,27 +22,59 @@ class StudentsController < ApplicationController
 	end
 
 	def new
-
+		@student = Student.new
 	end
 
 	def create
-
+		student = current_school.students.new(student_params)
+		if student.save
+			flash[:success] = "Schüler erfolgreich erstellt"
+			redirect_to students_url
+		else
+			render "new"
+		end
 	end
 
 	def edit
-
+		@student = current_school.students.find(params[:id])
 	end
 
 	def update
-
+		@student = current_school.students.find(params[:id])
+		if @student.update_attributes(student_params)
+			flash[:success] = "Schülerdaten erfolgreich geändert"
+			redirect_to students_url
+		else
+			render "edit"
+		end
 	end
 
 	def destroy
+		@student = current_school.students.find(params[:id])
+		if @student.destroy
+			flash[:success] = "Schüler erfolgreich gelöscht"
+		else
+			flash[:danger] = "Schüler konnte nicht gelöscht werden"
+		end
+		redirect_to students_url
+	end
+
+	def import
 
 	end
 
 	private
 		def correct_school
-			redirect_to home_url unless current_school?(Student.find(params[:id]).school)
+			if not (student = Student.find_by(:id => params[:id]))
+				flash[:danger] = "Schüler konnte nicht gefunden werden"
+				redirect_to students_url
+			elsif not current_school?(student.school)
+				flash[:danger] = "Der Schüler ist kein Schüler dieser Schule"
+				redirect_to students_url
+			end
+		end
+
+		def student_params
+			params.require(:student).permit(:name, :graduation_year, :class_letter)
 		end
 end

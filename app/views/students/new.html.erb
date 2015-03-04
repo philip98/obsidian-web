@@ -1,0 +1,21 @@
+<% provide(:title, "Neuer Schüler") %>
+<h1>Neuer Sch&uuml;ler</h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_for @student do |f| %>
+			<%= render :partial => "shared/error_messages", :locals => {:data => @student} %>
+
+			<%= f.label :name %>
+			<%= f.text_field :name, :class => "form-control" %>
+
+			<%= f.label :graduation_year, "Abschlussjahr" %>
+			<%= f.text_field :graduation_year, :class => "form-control", :maxlength => 4 %>
+
+			<%= f.label :class_letter, "Klassenbuchstabe" %>
+			<%= f.text_field :class_letter, :class => "form-control", :maxlength => 1 %>
+
+			<%= f.submit "Schüler erstellen", :class => "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>

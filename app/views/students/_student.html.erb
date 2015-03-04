@@ -3,7 +3,7 @@
 	<span class="float-right">
 		<%= link_to student.display_class, show_class_path(student.display_class), :class => "student_class" %>
 		<%= link_to "", edit_student_path(student), :class => "btn btn-default btn-xs glyphicon glyphicon-pencil" %>
-		<%= link_to "", student_path(student), :method => "destroy", :data => {:confirmation => "Sicher?"},
+		<%= link_to "", student_path(student), :method => :delete, :data => {:confirmation => "Sicher?"},
 			:class => "btn btn-xs btn-danger glyphicon glyphicon-remove" %>
 	</span>
 </li>
