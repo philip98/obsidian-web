@@ -1,5 +1,6 @@
-<% provide(:title, "Alle Schüler") %>
-<h1>Alle Sch&uuml;ler</h1>
+<% provide(:title, params[:class]) %>
+<h1>Klasse <%= params[:class] %></h1>
+
 <div class="row">
 	<div class="col-md-8 col-md-offset-2 center">
 		<%= link_to "Neuer Schüler", new_student_path, :class => "btn btn-default" %>
@@ -8,11 +9,9 @@
 </div>
 
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">
-		<div class="center"><%= will_paginate @students %></div>
+	<aside class="col-md-8 col-md-offset-2">
 		<ul class="students">
 			<%= render @students %>
 		</ul>
-		<div class="center"><%= will_paginate @students %></div>
-	</div>
+	</aside>
 </div>

@@ -1,15 +1,16 @@
 class Student < ActiveRecord::Base
+	include StudentsHelper
 	belongs_to :school
-	has_many :lendings, :as => :person, :dependent => :delete_all
+	has_many :lendings, :as => :person
 	has_many :lent_books, :through => :lendings
-	has_many :base_sets, :dependent => :delete_all
+	has_many :base_sets
 
-	validates :class_letter, :length => {:minimum => 0, :maximum => 1}
+	validates :class_letter, :length => {:maximum => 1}
 	validates :graduation_year, :numericality => {:greater_than => 2000}
 	validates :name, :presence => true
 	validates :school, :presence => true
 
-	before_save {self.class_letter = class_letter.downcase}
+	before_save {self.class_letter = class_letter.downcase if class_letter}
 
 	def lend_book(book)
 		self.lendings.create(:book => book)
@@ -27,23 +28,7 @@ class Student < ActiveRecord::Base
 		self.base_sets.find_by(:book => book).destroy
 	end
 
-	def Student.form_to_grad(form)
-		if Time.current.mon >= 9
-			13 + Time.current.year - form
-		else
-			12 + Time.current.year - form
-		end
-	end
-
-	def Student.grad_to_form(grad)
-		if Time.current.mon >= 9
-			13 + Time.current.year - grad
-		else
-			12 + Time.current.year - grad
-		end
-	end
-
 	def display_class
-		"#{Student.grad_to_form(graduation_year)}#{class_letter}"
+		"#{grad_to_form(graduation_year)}#{class_letter}"
 	end
 end

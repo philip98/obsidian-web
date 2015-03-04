@@ -4,14 +4,14 @@
 		<nav>
 			<ul class="nav navbar-nav navbar-right">
 				<li><%= link_to "Startseite", root_path %></li>
-				<li><%= link_to "Alle Schüler", students_path %></li>
-				<li><%= link_to "Hilfe", help_path%></li>
 				<% if logged_in? %>
+				<li><%= link_to "Schüler", students_path %></li>
 				<li><%= link_to "Einstellungen", edit_school_path(current_school) %></li>
 				<li><%= link_to "Logout", logout_path, :method => "delete" %></li>
 				<% else %>
 				<li><%= link_to "Login", login_path %>
 				<% end %>
+				<li><%= link_to "Hilfe", help_path%></li>
 			</ul>
 		</nav>
 	</div>

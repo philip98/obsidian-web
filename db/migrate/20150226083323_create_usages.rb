@@ -7,5 +7,7 @@ class CreateUsages < ActiveRecord::Migration
 		add_index :usages, [:school_id, :book_id], :unique => true
 		add_index :usages, :school_id
 		add_index :usages, :book_id
+		add_foreign_key :usages, :schools, :dependent => :delete
+		add_foreign_key :usages, :books, :dependent => :delete
 	end
 end

@@ -1,0 +1,25 @@
+<% provide(:title, @student.name) %>
+<div class="row">
+	<div class="col-md-5">
+		<section class="student_info">
+			<h1>
+				<%= @student.name %>
+				<small><%= @student.display_class %></small>
+			</h1>
+		</section>
+		<section class="books">
+			<h3 class="center">Ausgeliehener Basissatz:</h3>
+			<%= render :partial => "lendings/lending", :collection => @student.base_sets %>
+		</section>
+	</div>
+	<div class="col-md-5 col-md-offset-2">
+		<section class="student_buttons">
+			<%= link_to "Ausleihe buchen", new_lending_path("students", @student.id), :class => "btn btn-primary" %>
+			<%= link_to "Rückgabe buchen", delete_lending_path("students", @student.id), :class => "btn btn-primary" %>
+		</section>
+		<section class="books">
+			<h3 class="center">Sonstige Ausleihen:</h3>
+			<%= render @student.lendings %>
+		</section>
+	</div>
+</div>

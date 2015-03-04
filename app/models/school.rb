@@ -1,9 +1,9 @@
 class School < ActiveRecord::Base
-	has_many :students, :dependent => :delete_all
-	has_many :teachers, :dependent => :delete_all
-	has_many :usages, :dependent => :delete_all
+	has_many :students
+	has_many :teachers
+	has_many :usages
 	has_many :books, :through => :usages
-	has_many :aliases, :dependent => :delete_all
+	has_many :aliases
 
 	validates :name, :presence => true, :uniqueness => true
 

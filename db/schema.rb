@@ -14,13 +14,13 @@
 ActiveRecord::Schema.define(version: 20150227115422) do
 
   create_table "aliases", force: :cascade do |t|
-    t.string  "name"
+    t.string  "name",      null: false
     t.integer "book_id"
     t.integer "school_id"
   end
 
   add_index "aliases", ["school_id", "book_id"], name: "index_aliases_on_school_id_and_book_id"
-  add_index "aliases", ["school_id", "name"], name: "index_aliases_on_school_id_and_name"
+  add_index "aliases", ["school_id", "name"], name: "index_aliases_on_school_id_and_name", unique: true
 
   create_table "base_sets", force: :cascade do |t|
     t.integer  "student_id"
@@ -34,14 +34,14 @@ ActiveRecord::Schema.define(version: 20150227115422) do
   add_index "base_sets", ["student_id"], name: "index_base_sets_on_student_id"
 
   create_table "books", force: :cascade do |t|
-    t.string   "isbn"
-    t.string   "title"
-    t.string   "form"
+    t.string   "isbn",       null: false
+    t.string   "title",      null: false
+    t.string   "form",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true
+  add_index "books", ["isbn"], name: "index_books_on_isbn"
 
   create_table "lendings", force: :cascade do |t|
     t.integer  "person_id"
@@ -55,19 +55,18 @@ ActiveRecord::Schema.define(version: 20150227115422) do
   add_index "lendings", ["person_type", "person_id"], name: "index_lendings_on_person_type_and_person_id"
 
   create_table "schools", force: :cascade do |t|
-    t.string   "name"
-    t.string   "password_digest"
+    t.string   "name",            null: false
+    t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
-  add_index "schools", ["name"], name: "index_schools_on_name", unique: true
-
   create_table "students", force: :cascade do |t|
     t.integer  "school_id"
-    t.string   "name"
-    t.integer  "graduation_year"
+    t.string   "name",            null: false
+    t.integer  "graduation_year", null: false
     t.string   "class_letter"
+    t.string   "string"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -76,7 +75,7 @@ ActiveRecord::Schema.define(version: 20150227115422) do
 
   create_table "teachers", force: :cascade do |t|
     t.integer  "school_id"
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
