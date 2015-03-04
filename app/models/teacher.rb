@@ -1,6 +1,6 @@
 class Teacher < ActiveRecord::Base
 	belongs_to :school
-	has_many :lendings, :as => :person
+	has_many :lendings, :as => :person, :dependent => :destroy
 	has_many :books, :through => :lendings
 
 

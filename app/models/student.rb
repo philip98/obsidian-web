@@ -1,7 +1,7 @@
 class Student < ActiveRecord::Base
 	include StudentsHelper
 	belongs_to :school
-	has_many :lendings, :as => :person
+	has_many :lendings, :as => :person, :dependent => :destroy
 	has_many :lent_books, :through => :lendings
 	has_many :base_sets
 
