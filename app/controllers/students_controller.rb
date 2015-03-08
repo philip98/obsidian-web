@@ -7,14 +7,14 @@ class StudentsController < ApplicationController
 	end
 
 	def show_class
-		graduation_year = Student.form_to_grad(params[:class].to_i)
+		@graduation_year = form_to_grad(params[:class].to_i)
 		if params[:class][-1].match /[0..9]/
-			class_letter = ""
+			@class_letter = ""
 		else
-			class_letter = params[:class][-1].downcase
+			@class_letter = params[:class][-1].downcase
 		end
-		@students = current_school.students.where("graduation_year = ? AND class_letter = ?", graduation_year, 
-			class_letter).paginate(:page => params[:page])
+		@students = current_school.students.where("graduation_year = ? AND class_letter = ?", @graduation_year, 
+			@class_letter).order("name").paginate(:page => params[:page])
 	end
 
 	def show
@@ -22,13 +22,13 @@ class StudentsController < ApplicationController
 	end
 
 	def new
-		@student = Student.new
+		@student = Student.new(params.permit(:class_letter, :graduation_year))
 	end
 
 	def create
 		student = current_school.students.new(student_params)
 		if student.save
-			flash[:success] = "Schüler erfolgreich erstellt"
+			flash_message :success, "Schüler erfolgreich erstellt"
 			redirect_to students_url
 		else
 			render "new"
@@ -42,7 +42,7 @@ class StudentsController < ApplicationController
 	def update
 		@student = current_school.students.find(params[:id])
 		if @student.update_attributes(student_params)
-			flash[:success] = "Schülerdaten erfolgreich geändert"
+			flash_message :success, "Schülerdaten erfolgreich geändert"
 			redirect_to students_url
 		else
 			render "edit"
@@ -52,9 +52,9 @@ class StudentsController < ApplicationController
 	def destroy
 		@student = current_school.students.find(params[:id])
 		if @student.destroy
-			flash[:success] = "Schüler erfolgreich gelöscht"
+			flash_message :success, "Schüler erfolgreich gelöscht"
 		else
-			flash[:danger] = "Schüler konnte nicht gelöscht werden"
+			flash_message :danger, "Schüler konnte nicht gelöscht werden"
 		end
 		redirect_to students_url
 	end
@@ -66,10 +66,10 @@ class StudentsController < ApplicationController
 	private
 		def correct_school
 			if not (student = Student.find_by(:id => params[:id]))
-				flash[:danger] = "Schüler konnte nicht gefunden werden"
+				flash_message :danger, "Schüler konnte nicht gefunden werden"
 				redirect_to students_url
 			elsif not current_school?(student.school)
-				flash[:danger] = "Der Schüler ist kein Schüler dieser Schule"
+				flash_message :danger, "Der Schüler ist kein Schüler dieser Schule"
 				redirect_to students_url
 			end
 		end

@@ -1,0 +1,5 @@
+<% if @book %>
+$("#title_<%= @field %>").removeClass("error").html("<%= j @book.display_title %>")
+<% else %>
+$("#title_<%= @field %>").addClass("error").html("Das Buch existiert nicht")
+<% end %>

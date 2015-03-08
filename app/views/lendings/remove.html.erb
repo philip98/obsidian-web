@@ -1,0 +1,20 @@
+<% provide(:title, "Rückgabe buchen") %>
+<h1>R&uuml;ckgabe buchen</h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<% if params[:base_set]
+			path = delete_base_lending_path(:id => @person.id)
+		else
+			path = delete_lending_path(:type => (@person.is_a?(Student) ? "students" : "teachers"), :id => @person.id)
+		end %>
+		<%= form_tag path, :method => :post do %>
+			<h3>
+				<%= @person.name %>
+				<small><%= @person.display_class if @person.is_a?(Student) %></small>
+			</h3>
+			<%= render "isbns" %>
+			<%= submit_tag "Zurückgeben", :class => "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 			log_in school
 			redirect_back_or root_url
 		else
-			flash.now[:danger] = "Ungültiges Passwort"
+			flash.now[:danger] = ["Ungültiges Passwort"]
 			render "new"
 		end
 	end

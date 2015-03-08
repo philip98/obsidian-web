@@ -3,17 +3,14 @@
 
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<%= form_tag :url => {:action => "create"} do %>
+		<%= form_tag new_base_lending_path(:type => (@person.is_a?(Student) ? "students" : "teachers"), :id => @person.id), 
+			:method => :post do %>
 			<h3>
 				<%= @person.name %>
-				<small><%= @person.display_class if @person.display_class %></small>
+				<small><%= @person.display_class if @person.is_a?(Student) %></small>
 			</h3>
-			<%= hidden_field_tag "person_id", @person.id %>
-			<%= hidden_field_tag "person_student", (if @person.display_class then "true" else "false" end) %>
-			<% 16.times do |n| %>
-			<%=	text_field_tag "isbns[]", "", :class => "form-control left", :id => "isbn_#{n}", :maxlength => 13 %>
-			<span class="right" id="title_<%= n %>"></span>
-			<% end %>
+			<%= render "isbns" %>
+			<%= submit_tag "Ausleihen", :class => "btn btn-primary" %>
 		<% end %>
 	</div>
 </div>

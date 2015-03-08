@@ -3,7 +3,8 @@
 
 <div class="row">
 	<div class="col-md-8 col-md-offset-2 center">
-		<%= link_to "Neuer Schüler", new_student_path, :class => "btn btn-default" %>
+		<%= link_to "Neuer Schüler", new_student_path, :class => "btn btn-default", :class_letter => @class_letter,
+			:graduation_year => @graduation_year %>
 		<%= link_to "Schüler importieren", import_students_path, :class => "btn btn-default" %>
 	</div>
 </div>

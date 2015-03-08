@@ -10,7 +10,7 @@ class SchoolsController < ApplicationController
 		@school = School.new(school_params)
 		if @school.save
 			log_in @school
-			flash[:success] = "Willkommen!"
+			flash_message :success, "Willkommen!"
 			redirect_to root_url
 		else
 			render "new"
@@ -25,7 +25,7 @@ class SchoolsController < ApplicationController
 		@school = School.find(params[:id])
 		if @school.update_attributes(params.require(:school).permit(:password,
 			:password_confirmation))
-			flash[:success] = "Passwort geändert"
+			flash_massage :success, "Passwort geändert"
 			redirect_to root_url
 		else
 			render "edit"
@@ -35,7 +35,7 @@ class SchoolsController < ApplicationController
 	def destroy
 		log_out
 		School.find(params[:id]).destroy
-		flash[:success] = "Schule gelöscht"
+		flash_message :success, "Schule gelöscht"
 		redirect_to root_url
 	end
 

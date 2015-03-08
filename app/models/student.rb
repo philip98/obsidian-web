@@ -13,19 +13,27 @@ class Student < ActiveRecord::Base
 	before_save {self.class_letter = class_letter.downcase if class_letter}
 
 	def lend_book(book)
-		self.lendings.create(:book => book)
+		if book
+			self.lendings.create(:book => book)
+		end
 	end
 
 	def return_book(book)
-		self.lendings.find_by(:book => book).destroy
+		if (b = self.lendings.find_by(:book => book))
+			b.destroy
+		end
 	end
 
 	def lend_base_set(book)
-		self.base_sets.create(:book => book)
+		if book
+			self.base_sets.create(:book => book)
+		end
 	end
 
 	def return_base_set(book)
-		self.base_sets.find_by(:book => book).destroy
+		if (b = self.base_sets.find_by(:book => book))
+			b.destroy
+		end
 	end
 
 	def display_class
