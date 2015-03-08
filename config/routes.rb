@@ -30,6 +30,5 @@ Rails.application.routes.draw do
 			get :import
 		end
 	end
-
 	resources :teachers
 end

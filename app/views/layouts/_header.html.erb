@@ -6,6 +6,7 @@
 				<li><%= link_to "Startseite", root_path %></li>
 				<% if logged_in? %>
 				<li><%= link_to "Schüler", students_path %></li>
+				<li><%= link_to "Lehrer", teachers_path %></li>
 				<li><%= link_to "Einstellungen", edit_school_path(current_school) %></li>
 				<li><%= link_to "Logout", logout_path, :method => "delete" %></li>
 				<% else %>

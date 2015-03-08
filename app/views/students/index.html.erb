@@ -1,12 +1,9 @@
 <% provide(:title, "Alle Schüler") %>
-<h1>Alle Sch&uuml;ler</h1>
-<div class="row">
-	<div class="col-md-8 col-md-offset-2 center">
-		<%= link_to "Neuer Schüler", new_student_path, :class => "btn btn-default" %>
-		<%= link_to "Schüler importieren", import_students_path, :class => "btn btn-default" %>
-	</div>
-</div>
-
+<h1>
+	Alle Sch&uuml;ler
+	<%= link_to "", new_student_path, :class => "btn btn-success glyphicon glyphicon-plus" %>
+	<%= link_to "", import_students_path, :class => "btn btn-success glyphicon glyphicon-import" %>
+</h1>
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="center"><%= will_paginate @students %></div>

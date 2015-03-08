@@ -1,0 +1,15 @@
+<% provide(:title, "Alle Lehrer") %>
+<h1>
+	Alle Lehrer
+	<%= link_to "", new_teacher_path, :class => "btn btn-success glyphicon glyphicon-plus" %>
+</h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="center"><%= will_paginate @teachers %></div>
+			<ul class="teachers">
+				<%= render @teachers %>
+			</ul>
+		<div class="center"><%= will_paginate @teachers %></div>
+	</div>
+</div>

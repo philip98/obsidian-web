@@ -16,6 +16,10 @@ end
 	s.usages.create!(:book => b)
 end
 
+30.times do
+	Teachers.create(:name => Faker::Name.name, :school => s)
+end
+
 s.students.each do |student|
 	student.lend_base_set(Book.find_by(:title => "Lambacher Schweizer", :form => "9"))
 	student.lend_book(Book.find_by(:title => "Lambacher Schweizer", :form => "10"))
