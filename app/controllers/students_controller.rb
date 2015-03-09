@@ -4,6 +4,7 @@ class StudentsController < ApplicationController
 
 	def index
 		@students = current_school.students.order("graduation_year DESC", "class_letter").paginate(:page => params[:page])
+		@forms = current_school.students.select(:graduation_year, :class_letter).distinct
 	end
 
 	def show_class

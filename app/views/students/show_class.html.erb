@@ -1,18 +1,16 @@
 <% provide(:title, params[:class]) %>
-<h1>Klasse <%= params[:class] %></h1>
+<h1>
+	Klasse <%= params[:class] %>
+	<%= link_to "", new_student_path(:class_letter => @class_letter, :graduation_year => @graduation_year), 
+		:class => "btn btn-success glyphicon glyphicon-plus" %>
+	<%= link_to "", import_students_path(:class_letter => @class_letter, :graduation_year => @graduation_year),
+		:class => "btn btn-success glyphicon glyphicon-import" %>
+</h1>
 
 <div class="row">
-	<div class="col-md-8 col-md-offset-2 center">
-		<%= link_to "Neuer Schüler", new_student_path, :class => "btn btn-default", :class_letter => @class_letter,
-			:graduation_year => @graduation_year %>
-		<%= link_to "Schüler importieren", import_students_path, :class => "btn btn-default" %>
-	</div>
-</div>
-
-<div class="row">
-	<aside class="col-md-8 col-md-offset-2">
+	<section class="col-md-8 col-md-offset-2">
 		<ul class="students">
 			<%= render @students %>
 		</ul>
-	</aside>
+	</section>
 </div>

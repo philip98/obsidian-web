@@ -4,11 +4,24 @@
 	<%= link_to "", new_student_path, :class => "btn btn-success glyphicon glyphicon-plus" %>
 	<%= link_to "", import_students_path, :class => "btn btn-success glyphicon glyphicon-import" %>
 </h1>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<section class="classes">
+			<%= render :partial => "students/form", :collection => @forms %>
+		</section>
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="center"><%= will_paginate @students %></div>
 		<ul class="students">
+			<% if @students.any? %>
 			<%= render @students %>
+			<% else %>
+			<span class="blank_list">Zur Zeit sind keine Sch&uuml;ler vorhanden</span>
+			<% end %>
 		</ul>
 		<div class="center"><%= will_paginate @students %></div>
 	</div>

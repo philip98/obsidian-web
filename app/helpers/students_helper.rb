@@ -14,4 +14,8 @@ module StudentsHelper
 			12 + Time.current.year - grad
 		end
 	end
+
+	def display_class(data)
+		"#{grad_to_form(data.graduation_year)}#{data.class_letter}"
+	end
 end

@@ -31,6 +31,9 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1;
+	small {
+		margin-left: 5px;
+	}
 }
 
 h1 {
@@ -139,12 +142,24 @@ input {
 			color: $black;
 			text-decoration: none;
 		}
-		
-		a.student_class {
-			font-weight: bold;
-			margin-right: 20px;
-		}
 	}
+}
+
+a.student_class {
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+.student_buttons {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.teacher_buttons {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: center;
 }
 
 .teachers {
@@ -158,6 +173,14 @@ input {
 			color: $black;
 			text-decoration: none;
 		}
+	}
+}
+
+.classes {
+	overflow: auto;
+	margin-top: 10px;
+	a.btn {
+		margin: 3px 3px;
 	}
 }
 
@@ -180,9 +203,6 @@ input {
 }
 
 aside {
-	section.student_info {
-		margin-top: 20px;
-	}
 	section {
 		padding: 10px 0;
 		margin-top: 20px;
@@ -203,4 +223,8 @@ aside {
 			margin-top: 0px;
 		}
 	}
+}
+
+.blank_list {
+	font-style: italic;
 }

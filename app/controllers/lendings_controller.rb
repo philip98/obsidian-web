@@ -19,7 +19,11 @@ class LendingsController < ApplicationController
 				@person.lend_book(@book)
 			end
 		end
-		redirect_to @person
+		if @person.is_a?(Student)
+			redirect_to student_url(@person.id)
+		elsif @person.is_a?(Teacher)
+			redirect_to teacher_url(@person.id)
+		end
 	end
 
 	def remove
@@ -38,7 +42,11 @@ class LendingsController < ApplicationController
 				@person.return_book(@book)
 			end
 		end
-		redirect_to @person
+		if @person.is_a?(Student)
+			redirect_to student_url(@person.id)
+		elsif @person.is_a?(Teacher)
+			redirect_to teacher_url(@person.id)
+		end
 	end
 
 	private

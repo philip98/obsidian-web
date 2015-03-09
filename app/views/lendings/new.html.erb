@@ -3,8 +3,12 @@
 
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<%= form_tag new_base_lending_path(:type => (@person.is_a?(Student) ? "students" : "teachers"), :id => @person.id), 
-			:method => :post do %>
+		<% if params[:base_set]
+			path = new_base_lending_path(:id => @person.id)
+		else
+			path = new_lending_path(:type => (@person.is_a?(Student) ? "students" : "teachers"), :id => @person.id)
+		end %>
+		<%= form_tag path, :method => :post do %>
 			<h3>
 				<%= @person.name %>
 				<small><%= @person.display_class if @person.is_a?(Student) %></small>
