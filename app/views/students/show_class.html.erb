@@ -8,9 +8,35 @@
 </h1>
 
 <div class="row">
-	<section class="col-md-8 col-md-offset-2">
-		<ul class="list">
-			<%= render @students %>
-		</ul>
-	</section>
+	<table class="table-striped table-header-rotated">
+		<thead>
+			<tr>
+				<th></th>
+				<th></th>
+				<%= render :partial => "books/header", :collection => @books %>
+			</tr>
+		</thead>
+		<tbody>
+		<% @students.each do |student| %>
+			<tr>
+				<td>
+					<%= link_to "", new_base_lending_path(student), :class => 
+						"btn btn-xs btn-warning glyphicon glyphicon-export" %>
+					<%= link_to "", delete_base_lending_path(student), :class => 
+						"btn btn-xs btn-warning glyphicon glyphicon-import" %>
+					<%= link_to student.name, student, :class => "student_name" %>
+				</td>
+				<% @books.each do |book| %>
+				<td>
+					<% if @bs[student] and @bs[student][book] %>
+					<input type="checkbox" class="form-control" readonly checked disabled>
+					<% else %>
+					<input type="checkbox" class="form-control" readonly disabled>
+					<% end %>
+				</td>
+				<% end %>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
 </div>

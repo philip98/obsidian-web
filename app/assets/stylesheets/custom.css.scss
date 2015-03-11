@@ -138,15 +138,16 @@ input {
 		overflow: auto;
 		padding: 10px 0;
 		border-bottom: 1px solid $gray-lighter;
-		a.student_name {
-			color: $black;
-			text-decoration: none;
-		}
 		a.teacher_name {
 			color: $black;
 			text-decoration: none;
 		}
 	}
+}
+
+a.student_name {
+	color: $black;
+	text-decoration: none;
 }
 
 a.student_class {
@@ -221,4 +222,28 @@ aside {
 
 .book_isbn {
 	margin-right: 20px;
+}
+
+.table-header-rotated {
+	border-collapse: collapse;
+	td {
+		border-right: 1px solid $gray-light;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	th.rotate {
+		vertical-align: bottom;
+		padding-bottom: 20px;
+		height: 250px;
+		white-space: nowrap;
+    // Firefox needs the extra DIV for some reason, otherwise the text disappears if you rotate 
+		> div {
+    		@include rotate(315deg);
+			width: 30px;
+		}
+		> div > span {
+			border-bottom: 1px solid #ccc;
+			padding: 5px 10px;
+		}
+	}
 }

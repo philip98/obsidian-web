@@ -9,13 +9,22 @@ class StudentsController < ApplicationController
 
 	def show_class
 		@graduation_year = form_to_grad(params[:class].to_i)
-		if params[:class][-1].match /[0..9]/
-			@class_letter = ""
+		if params[:class][-1].match /[0-9]/
+			@data = current_school.students.where("graduation_year = ?", @graduation_year)
 		else
 			@class_letter = params[:class][-1].downcase
+			@data = current_school.students.where("graduation_year = ? AND class_letter = ?", @graduation_year, 
+				@class_letter)
 		end
-		@students = current_school.students.where("graduation_year = ? AND class_letter = ?", @graduation_year, 
-			@class_letter).order("name").paginate(:page => params[:page])
+		@students = @data.order("name").paginate(:page => params[:page])
+		@books = current_school.books.joins(:usages).where("usages.form LIKE ?", "%#{params[:class].to_i}%")
+		@bs = Hash.new
+		@students.each do |student|
+			@bs[student] = Hash.new
+			student.base_sets.each do |base_set|
+				@bs[student][base_set.book] = true
+			end
+		end
 	end
 
 	def show

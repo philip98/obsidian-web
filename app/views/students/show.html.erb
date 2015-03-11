@@ -1,7 +1,8 @@
 <% provide(:title, @student.name) %>
 <h1>
 	<%= @student.name %>
-	<small><%= @student.display_class %></small>
+	<%= link_to @student.display_class, show_class_path(@student.display_class), 
+		:class => "btn btn-default" %>
 </h1>
 <section class="student_buttons">
 	<%= link_to "Ausleihe buchen", new_lending_path("students", @student.id), :class => "btn btn-primary" %>
