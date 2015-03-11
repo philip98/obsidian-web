@@ -12,7 +12,6 @@
 		<thead>
 			<tr>
 				<th></th>
-				<th></th>
 				<%= render :partial => "books/header", :collection => @books %>
 			</tr>
 		</thead>
@@ -29,9 +28,9 @@
 				<% @books.each do |book| %>
 				<td>
 					<% if @bs[student] and @bs[student][book] %>
-					<input type="checkbox" class="form-control" readonly checked disabled>
+					<input type="checkbox" readonly checked disabled>
 					<% else %>
-					<input type="checkbox" class="form-control" readonly disabled>
+					<input type="checkbox" readonly disabled>
 					<% end %>
 				</td>
 				<% end %>
