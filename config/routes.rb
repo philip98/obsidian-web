@@ -31,4 +31,9 @@ Rails.application.routes.draw do
 		end
 	end
 	resources :teachers
+	resources :books, :only => [:new, :create, :index, :destroy] do
+		collection do
+			get :lookup
+		end
+	end
 end

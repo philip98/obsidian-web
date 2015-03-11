@@ -1,6 +1,10 @@
-<span class="book_isbn">
-	<%= book.isbn %>
-</span>
-<span class="book_title">
-	<%= book.display_title %>
-</span>
+<li>
+	<span class="float-left">
+		<span class="book_isbn"><%= book.isbn %></span>
+		<%= display_title(book) %>
+	</span>
+	<span class="float-right">
+		<%= link_to "", book_path(book), :method => :delete, :data => {:confirm => "Sicher?"}, :class => 
+			"btn btn-danger btn-xs glyphicon glyphicon-remove" %>
+	</span>
+</li>

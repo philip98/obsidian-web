@@ -1,0 +1,17 @@
+<% provide(:title, "Alle Bücher") %>
+<h1>
+	Alle B&uuml;cher
+	<%= link_to "", new_book_path, :class => "btn btn-success glyphicon glyphicon-plus" %>
+</h1>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<ul class="list">
+			<% if @books.any? %>
+			<%= render @books %>
+			<% else %>
+			<span class="blank_list">Zur Zeit sind keine B&uuml;cher vorhanden</span>
+			<% end %>
+		</ul>
+	</div>
+</div>

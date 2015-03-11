@@ -13,7 +13,8 @@ class LendingsController < ApplicationController
 				begin
 					@person.lend_base_set(@book)
 				rescue ActiveRecord::RecordNotUnique
-					flash_message :warning, "#{@person.name} hat das Buch #{@book.display_title} schon bekommen"
+					flash_message :warning, "#{@person.name} hat das Buch #{@book.display_title}"
+						" schon bekommen"
 				end
 			else
 				@person.lend_book(@book)

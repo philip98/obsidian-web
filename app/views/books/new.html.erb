@@ -1,0 +1,21 @@
+<% provide(:title, "Neues Buch") %>
+<h1>Neues Buch</h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_for @book do |f| %>
+			<%= render :partial => "shared/error_messages", :locals => {:data => @book} %>
+
+			<%= f.label :isbn, "ISBN" %>
+			<%= f.text_field :isbn, :maxlength => 13, :class => "form-control" %>
+
+			<%= f.label :title, "Titel" %>
+			<%= f.text_field :title, :class => "form-control" %>
+
+			<%= label_tag :form, "Jahrgangsstufe(n) (durch Leerzeichen getrennt)" %>
+			<%= text_field_tag :form, "", :class => "form-control" %>
+
+			<%= f.submit "Buch hinzufügen", :class => "btn btn-success" %>
+		<% end %>
+	</div>
+</div>
