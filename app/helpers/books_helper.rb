@@ -8,4 +8,13 @@ module BooksHelper
 			return nil
 		end
 	end
+
+	def display_title(book)
+		u = current_school.usages.find_by(:book => book)
+		if u and book
+			"#{book.title} #{u.form}"
+		else
+			""
+		end
+	end
 end

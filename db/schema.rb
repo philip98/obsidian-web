@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20150227115422) do
   create_table "books", force: :cascade do |t|
     t.string   "isbn",       null: false
     t.string   "title",      null: false
-    t.string   "form",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -85,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150227115422) do
   create_table "usages", force: :cascade do |t|
     t.integer "school_id"
     t.integer "book_id"
+    t.string  "form",      null: false
   end
 
   add_index "usages", ["book_id"], name: "index_usages_on_book_id"

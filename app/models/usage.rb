@@ -4,4 +4,9 @@ class Usage < ActiveRecord::Base
 
 	validates :school, :presence => true
 	validates :book, :presence => true
+	validates :form, :presence => true
+
+	def display_form
+		"#{book.title} #{form}"
+	end
 end

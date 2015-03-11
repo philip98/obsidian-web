@@ -3,6 +3,8 @@ class CreateUsages < ActiveRecord::Migration
 		create_table :usages do |t|
 			t.references :school
 			t.references :book
+
+			t.string :form, :null => false
 		end
 		add_index :usages, [:school_id, :book_id], :unique => true
 		add_index :usages, :school_id
