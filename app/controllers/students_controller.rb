@@ -4,7 +4,9 @@ class StudentsController < ApplicationController
 
 	def index
 		@students = current_school.students.order("graduation_year DESC", "class_letter").paginate(:page => params[:page])
-		@forms = current_school.students.select(:graduation_year, :class_letter).distinct
+		@forms = current_school.students.select(:graduation_year, :class_letter).order("graduation_year DESC", :class_letter)
+			.distinct
+		store_location
 	end
 
 	def show_class
@@ -25,10 +27,12 @@ class StudentsController < ApplicationController
 				@bs[student][base_set.book] = true
 			end
 		end
+		store_location
 	end
 
 	def show
 		@student = Student.find(params[:id])
+		store_location
 	end
 
 	def new
@@ -39,7 +43,7 @@ class StudentsController < ApplicationController
 		student = current_school.students.new(student_params)
 		if student.save
 			flash_message :success, "Schüler erfolgreich erstellt"
-			redirect_to students_url
+			redirect_back_or students_url
 		else
 			render "new"
 		end

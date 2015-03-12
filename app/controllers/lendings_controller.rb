@@ -21,9 +21,9 @@ class LendingsController < ApplicationController
 			end
 		end
 		if @person.is_a?(Student)
-			redirect_to student_url(@person.id)
+			redirect_back_or student_url(@person.id)
 		elsif @person.is_a?(Teacher)
-			redirect_to teacher_url(@person.id)
+			redirect_back_or teacher_url(@person.id)
 		end
 	end
 
@@ -44,9 +44,9 @@ class LendingsController < ApplicationController
 			end
 		end
 		if @person.is_a?(Student)
-			redirect_to student_url(@person.id)
+			redirect_back_or student_url(@person.id)
 		elsif @person.is_a?(Teacher)
-			redirect_to teacher_url(@person.id)
+			redirect_back_or teacher_url(@person.id)
 		end
 	end
 

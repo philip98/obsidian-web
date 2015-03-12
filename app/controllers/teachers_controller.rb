@@ -4,6 +4,7 @@ class TeachersController < ApplicationController
 
 	def index
 		@teachers = current_school.teachers.order("name").paginate(:page => params[:page])
+		store_location
 	end
 
 	def show

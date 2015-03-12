@@ -8,7 +8,7 @@ s = School.create!(:name => "MGM", :password => "password", :password_confirmati
 end
 
 [11, 12].each do |form|
-	s.students.create!(:name => Faker::Name.name, :graduation_year => form_to_grad(form))
+	s.students.create!(:name => Faker::Name.name, :graduation_year => form_to_grad(form), :class_letter => "")
 end
 
 [5, 6, 7, 8, 9, 10, 12].each do |form|

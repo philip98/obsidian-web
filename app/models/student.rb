@@ -10,7 +10,9 @@ class Student < ActiveRecord::Base
 	validates :name, :presence => true
 	validates :school, :presence => true
 
-	before_save {self.class_letter = class_letter.downcase if class_letter}
+	before_save {
+		self.class_letter = class_letter.downcase if class_letter
+	}
 
 	def lend_book(book)
 		if book
