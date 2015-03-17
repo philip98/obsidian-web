@@ -1,4 +1,5 @@
 class Student < ActiveRecord::Base
+	require 'csv'
 	include StudentsHelper
 	belongs_to :school
 	has_many :lendings, :as => :person, :dependent => :destroy
@@ -40,5 +41,22 @@ class Student < ActiveRecord::Base
 
 	def display_class
 		"#{grad_to_form(graduation_year)}#{class_letter}"
+	end
+
+	def self.import(file, graduation_year, class_letter, school)
+		count = 0
+		CSV.foreach(file.path, :col_sep => "\t", :headers => true) do |r|
+			row = r.to_hash
+			name = row["name"] || "#{row['nachname']} #{row['vorname']}" || next
+			gr = graduation_year || row["abschlussjahr"] || next
+			cl = class_letter || row["klassenbuchstabe"] || ""
+			s = Student.new :name => name, :graduation_year => gr, :class_letter => cl, :school => school
+			if s.save
+				count += 1
+			else
+				return s.errors.full_messages.join("\n")
+			end
+		end
+		return count
 	end
 end

@@ -74,7 +74,32 @@ class StudentsController < ApplicationController
 	end
 
 	def import
+		@class_letter = params[:class_letter]
+		@graduation_year = params[:graduation_year]
+		respond_to do |format|
+			format.js
+			format.html
+		end
+	end
 
+	def import_students
+		if !params[:file]
+			flash_message :danger, "Es wurde keine Datei angegeben"
+		else
+			c = Student.import(params[:file], (params[:graduation_year] if params[:graduation_year_ch]),
+				(params[:class_letter] if params[:class_letter_ch]), current_school)
+			if c == 1
+				flash_message :success, "Es wurde ein Schüler importiert"
+			elsif c.is_a?(String)
+				flash_message :danger, c
+			elsif c > 1
+				flash_message :success, "Es wurden #{c} Schüler importiert"
+			else
+				flash_message :warning, "Es wurde kein Schüler importiert"
+			end
+		end
+			
+		redirect_back_or students_url
 	end
 
 	private

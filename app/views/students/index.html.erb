@@ -2,8 +2,15 @@
 <h1>
 	Alle Sch&uuml;ler
 	<%= link_to "", new_student_path, :class => "btn btn-success glyphicon glyphicon-plus" %>
-	<%= link_to "", import_students_path, :class => "btn btn-success glyphicon glyphicon-import" %>
+	<%= link_to "", import_students_path, :class => "btn btn-success glyphicon glyphicon-import",
+		:remote => true %>
 </h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3" id="import-form">
+
+	</div>
+</div>
 
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">

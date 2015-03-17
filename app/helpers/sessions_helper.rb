@@ -19,7 +19,7 @@ module SessionsHelper
 	def logged_in_school
 		unless logged_in?
 			store_location
-			flash[:danger] = "Bitte einloggen"
+			flash_message :danger, "Bitte einloggen"
 			redirect_to login_url
 		end
 	end

@@ -27,7 +27,8 @@ Rails.application.routes.draw do
 	resources :schools, :only => [:new, :create, :edit, :update, :destroy]
 	resources :students do
 		collection do
-			get :import
+			get :import, :action => :import
+			post :import, :action => :import_students
 		end
 	end
 	resources :teachers
