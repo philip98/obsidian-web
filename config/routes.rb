@@ -32,9 +32,10 @@ Rails.application.routes.draw do
 		end
 	end
 	resources :teachers
-	resources :books, :only => [:new, :create, :index, :destroy] do
+	resources :books, :only => [:show, :new, :create, :index, :destroy] do
 		collection do
 			get :lookup
 		end
 	end
+	resources :aliases, :only => [:index, :new, :create, :destroy]
 end

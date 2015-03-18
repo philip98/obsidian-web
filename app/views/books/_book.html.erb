@@ -1,7 +1,7 @@
 <li>
 	<span class="float-left">
 		<span class="book_isbn"><%= book.isbn %></span>
-		<%= display_title(book) %>
+		<%= link_to display_title(book), book, :class => "student_name" %>
 	</span>
 	<span class="float-right">
 		<%= link_to "", book_path(book), :method => :delete, :data => {:confirm => "Sicher?"}, :class => 

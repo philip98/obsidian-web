@@ -7,4 +7,6 @@ class Alias < ActiveRecord::Base
 	validates :school, :presence => true
 
 	before_create {self.name = name.downcase}
+
+	accepts_nested_attributes_for :book
 end

@@ -3,6 +3,21 @@ class BooksController < ApplicationController
 
 	def index
 		@books = current_school.books.joins(:usages).order("usages.form").paginate(:page => params[:page])
+		store_location
+	end
+
+	def show
+		@book = current_school.books.find_by(:id => params[:id])
+		if !@book
+			flash_message :danger, "Buch konnte nicht gefunden werden"
+			redirect_back_or books_url
+		end
+		@classes = Array.new
+		@book.base_sets.each do |base_set|
+			@classes << base_set.student.display_class if base_set && base_set.student
+		end
+		@classes.sort!
+		@classes.uniq!
 	end
 
 	def new

@@ -1,0 +1,8 @@
+<li>
+	<span class="float-left"><%= book_alias.name %></span>
+	<span class="float-right">
+		<%= link_to display_title(book_alias.book), book_alias.book, :class => "book_title" %>
+		<%= link_to "", book_alias, :method => :delete, :class => "btn btn-xs btn-danger glyphicon glyphicon-remove",
+			:data => {:confirm => "Sicher?"} %>
+	</span>
+</li>
