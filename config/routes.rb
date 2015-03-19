@@ -24,17 +24,31 @@ Rails.application.routes.draw do
 	post "students/:id/return_base" => "lendings#destroy", :defaults => {:base_set => true, :type => "students"}
 	get "books/lookup(.:format)" => "books#lookup", :as => "lookup_book"
 
-	resources :schools, :only => [:new, :create, :edit, :update, :destroy]
+	resources :schools, :only => [:new, :create, :edit, :update, :destroy] do
+		collection do
+			get :query
+		end
+	end
+
 	resources :students do
 		collection do
 			get :import, :action => :import
 			post :import, :action => :import_students
+			get :query
+			get :query_classes
 		end
 	end
-	resources :teachers
+
+	resources :teachers do
+		collection do
+			get :query
+		end
+	end
+
 	resources :books, :only => [:show, :new, :create, :index, :destroy] do
 		collection do
 			get :lookup
+			get :query
 		end
 	end
 	resources :aliases, :only => [:index, :new, :create, :destroy]
