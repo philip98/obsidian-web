@@ -15,33 +15,7 @@
 
 <div class="row">
 	<table class="table-striped table-header-rotated">
-		<thead>
-			<tr>
-				<th></th>
-				<%= render :partial => "books/header", :collection => @books %>
-			</tr>
-		</thead>
-		<tbody>
-		<% @students.each do |student| %>
-			<tr>
-				<td>
-					<%= link_to "", new_base_lending_path(student), :class => 
-						"btn btn-xs btn-warning glyphicon glyphicon-export" %>
-					<%= link_to "", delete_base_lending_path(student), :class => 
-						"btn btn-xs btn-warning glyphicon glyphicon-import" %>
-					<%= link_to student.name, student, :class => "student_name" %>
-				</td>
-				<% @books.each do |book| %>
-				<td>
-					<% if @bs[student] and @bs[student][book] %>
-					<input type="checkbox" readonly checked disabled>
-					<% else %>
-					<input type="checkbox" readonly disabled>
-					<% end %>
-				</td>
-				<% end %>
-			</tr>
-		<% end %>
-		</tbody>
+		<%= render :partial => "base_sets", :locals => {:students => @students, :books => @books, :bs => @bs,
+			:list => params[:list], :form => params[:class]} %>
 	</table>
 </div>

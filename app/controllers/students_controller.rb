@@ -10,6 +10,7 @@ class StudentsController < ApplicationController
 	end
 
 	def show_class
+		params[:list] ||= (Time.now.month >= 9) ? "new" : "old"
 		@graduation_year = form_to_grad(params[:class].to_i)
 		if params[:class][-1].match /[0-9]/
 			@data = current_school.students.where("graduation_year = ?", @graduation_year)
@@ -19,7 +20,12 @@ class StudentsController < ApplicationController
 				@class_letter)
 		end
 		@students = @data.order("name").paginate(:page => params[:page])
-		@books = current_school.books.joins(:usages).where("usages.form LIKE ?", "%#{params[:class].to_i}%")
+		if params[:list] == "old"
+			display_form = 12 + Time.now.year - @graduation_year
+		elsif params[:list] == "new"
+			display_form = 13 + Time.now.year - @graduation_year
+		end
+		@books = current_school.books.joins(:usages).where("usages.form LIKE ?", "%#{display_form}%")
 		@bs = Hash.new
 		@students.each do |student|
 			@bs[student] = Hash.new
@@ -28,6 +34,10 @@ class StudentsController < ApplicationController
 			end
 		end
 		store_location
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	def show

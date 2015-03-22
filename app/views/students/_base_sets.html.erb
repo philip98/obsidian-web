@@ -1,0 +1,32 @@
+<thead>
+	<tr>
+		<th>
+			<%= select_tag :list, options_for_select({"Alte Liste" => "old", "Neue Liste" => "new"}, list),
+				:class => "form-control", :id => 
+				"listSelect", :data => {:url => show_class_url(form)} %>
+		</th>
+		<%= render :partial => "books/header", :collection => books %>
+	</tr>
+</thead>
+<tbody>
+	<% students.each do |student| %>
+	<tr>
+		<td>
+			<%= link_to "", new_base_lending_path(student), :class => 
+				"btn btn-xs btn-warning glyphicon glyphicon-export" %>
+			<%= link_to "", delete_base_lending_path(student), :class => 
+				"btn btn-xs btn-warning glyphicon glyphicon-import" %>
+			<%= link_to student.name, student, :class => "student_name" %>
+		</td>
+		<% books.each do |book| %>
+		<td>
+			<% if bs[student] and bs[student][book] %>
+			<input type="checkbox" readonly checked disabled>
+			<% else %>
+			<input type="checkbox" readonly disabled>
+			<% end %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %>
+</tbody>
