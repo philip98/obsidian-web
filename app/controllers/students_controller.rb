@@ -112,6 +112,23 @@ class StudentsController < ApplicationController
 		end
 	end
 
+	def mass_edit
+		redirect_back_or students_url unless ["graduation_year", "class_letter"].include?(params[:field])
+		count = 0
+		params[:ids].each do |id|
+			count += 1 if (student = current_school.students.find_by(:id => id)) and 
+				student.update(params[:field].to_sym => params[:value])
+		end
+		if count == 1
+			flash_message :success, "Ein Schüler wurde geändert"
+		elsif count > 1
+			flash_message :success, "#{count} Schüler wurden geändert"
+		else
+			flash_message :warning, "Kein Schüler wurde geändert"
+		end
+		redirect_back_or students_url
+	end
+
 	private
 		def correct_school
 			if not (student = Student.find_by(:id => params[:id]))

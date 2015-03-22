@@ -22,14 +22,24 @@
 
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
-		<div class="center"><%= will_paginate @students %></div>
-		<ul class="list">
-			<% if @students.any? %>
-			<%= render @students %>
-			<% else %>
-			<span class="blank_list">Zur Zeit sind keine Sch&uuml;ler vorhanden</span>
-			<% end %>
-		</ul>
-		<div class="center"><%= will_paginate @students %></div>
+		<%= form_tag mass_edit_students_path do %>
+			<div class="center"><%= will_paginate @students %></div>
+			<ul class="list">
+				<% if @students.any? %>
+				<%= render @students %>
+				<% else %>
+				<span class="blank_list">Zur Zeit sind keine Sch&uuml;ler vorhanden</span>
+				<% end %>
+			</ul>
+			<div class="center"><%= will_paginate @students %></div>
+			<div class="input-group">
+				<span class="input-group-btn">
+				<%= select_tag :field, options_for_select("Abschlussjahr" => "graduation_year", "Klassenbuchstabe" => 
+					"class_letter"), :class => "btn" %></span>
+				<%= text_field_tag :value, "", :class => "form-control" %>
+				<span class="input-group-btn"><%= submit_tag "Ändern", :class => "btn btn-warning" %>
+				</span>
+			</div>
+		<% end %>
 	</div>
 </div>
