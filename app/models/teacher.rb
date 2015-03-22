@@ -3,7 +3,6 @@ class Teacher < ActiveRecord::Base
 	has_many :lendings, :as => :person, :dependent => :destroy
 	has_many :books, :through => :lendings
 
-
 	validates :name, :presence => true
 	validates :school, :presence => true
 

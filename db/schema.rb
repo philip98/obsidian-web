@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227115422) do
+ActiveRecord::Schema.define(version: 20150322075651) do
 
   create_table "aliases", force: :cascade do |t|
     t.string  "name",      null: false
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150227115422) do
   end
 
   add_index "books", ["isbn"], name: "index_books_on_isbn"
+  add_index "books", ["title"], name: "index_books_on_title"
 
   create_table "lendings", force: :cascade do |t|
     t.integer  "person_id"
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150227115422) do
     t.datetime "updated_at",      null: false
   end
 
+  add_index "students", ["name"], name: "index_students_on_name"
   add_index "students", ["school_id"], name: "index_students_on_school_id"
 
   create_table "teachers", force: :cascade do |t|
@@ -79,6 +81,7 @@ ActiveRecord::Schema.define(version: 20150227115422) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "teachers", ["name"], name: "index_teachers_on_name"
   add_index "teachers", ["school_id"], name: "index_teachers_on_school_id"
 
   create_table "usages", force: :cascade do |t|

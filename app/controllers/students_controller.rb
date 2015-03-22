@@ -103,7 +103,7 @@ class StudentsController < ApplicationController
 	end
 
 	def query
-		students = #todo
+		students = current_school.students.where("name LIKE ?", "#{params[:q]}%").limit(10)
 		st = students.map do |s|
 			{:name => s.name, :class => s.display_class, :url => student_url(s)}
 		end

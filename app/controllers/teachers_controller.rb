@@ -45,6 +45,16 @@ class TeachersController < ApplicationController
 		redirect_to teachers_url
 	end
 
+	def query
+		teachers = current_school.teachers.where("name LIKE ?", "#{params[:q]}%").limit(10)
+		t = teachers.map do |teacher|
+			{:name => teacher.name, :url => teacher_url(teacher)}
+		end
+		respond_to do |format|
+			format.json { render :json => t }
+		end
+	end
+
 	private
 		def correct_school
 			@teacher = current_school.teachers.find_by(:id => params[:id])

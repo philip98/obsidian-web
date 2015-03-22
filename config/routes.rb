@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 			get :import, :action => :import
 			post :import, :action => :import_students
 			get :query
-			get :query_classes
 		end
 	end
 

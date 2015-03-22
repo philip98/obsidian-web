@@ -84,4 +84,14 @@ class BooksController < ApplicationController
 			format.js
 		end
 	end
+
+	def query
+		books = current_school.books.where("title LIKE ?", "#{params[:q]}%").limit(10)
+		b = books.map do |book|
+			{:title => display_title(book), :url => book_url(book)}
+		end
+		respond_to do |format|
+			format.json { render :json => b }
+		end
+	end
 end
