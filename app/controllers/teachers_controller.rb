@@ -8,6 +8,7 @@ class TeachersController < ApplicationController
 	end
 
 	def show
+		store_location
 	end
 
 	def new

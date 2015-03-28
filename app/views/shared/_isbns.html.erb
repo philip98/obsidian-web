@@ -1,7 +1,7 @@
 <% 16.times do |n| %>
 <div class="input-group">
 	<input type="text" name="isbns[]", class="form-control", id="isbn_<%= n %>", maxlength="13"
-			data-lookup="<%= lookup_book_url %>">
+			data-lookup="<%= lookup_books_url %>">
 	<span class="input-group-addon" id="title_<%= n %>"></span>
 </div>
 <% end %>

@@ -12,9 +12,9 @@
 	<% students.each do |student| %>
 	<tr>
 		<td>
-			<%= link_to "", new_base_lending_path(student), :class => 
+			<%= link_to "", new_student_base_set_path(student), :class => 
 				"btn btn-xs btn-warning glyphicon glyphicon-export" %>
-			<%= link_to "", delete_base_lending_path(student), :class => 
+			<%= link_to "", withdraw_student_base_sets_path(student), :class => 
 				"btn btn-xs btn-warning glyphicon glyphicon-import" %>
 			<%= link_to student.name, student, :class => "student_name" %>
 		</td>

@@ -8,21 +8,13 @@ Rails.application.routes.draw do
 	post "login" => "sessions#create"
 	delete "logout" => "sessions#destroy"
 	get "students/class/:class" => "students#show_class", :as => "show_class"
-	get ":type/:id/lend" => "lendings#new", :as => "new_lending", :defaults => {:base_set => false}, 
-		:type => /students|teachers/
-	post ":type/:id/lend" => "lendings#create", :defaults => {:base_set => false},
-		:type => /students|teachers/
-	get ":type/:id/return" => "lendings#remove", :as => "delete_lending", :defaults => {:base_set => false},
-		:type => /students|teachers/
-	post ":type/:id/return" => "lendings#destroy", :defaults => {:base_set => false},
-		:type => /students|teachers/
-	get "students/:id/lend_base" => "lendings#new", :as => "new_base_lending", :defaults => {:base_set => true,
-		:type => "students"}
-	post "students/:id/lend_base" => "lendings#create", :defaults => {:base_set => true, :type => "students"}
-	get "students/:id/return_base" => "lendings#remove", :as => "delete_base_lending", :defaults => {:base_set => true,
-		:type => "students"}
-	post "students/:id/return_base" => "lendings#destroy", :defaults => {:base_set => true, :type => "students"}
-	get "books/lookup(.:format)" => "books#lookup", :as => "lookup_book"
+
+	concern :lendable do 
+		resources :lendings, :only => [:new, :create] do
+			get :withdraw, :on => :collection
+			delete :destroy, :on => :collection
+		end
+	end
 
 	resources :schools, :only => [:new, :create, :edit, :update, :destroy] do
 		collection do
@@ -30,7 +22,12 @@ Rails.application.routes.draw do
 		end
 	end
 
-	resources :students do
+	resources :students, :concerns => [:lendable] do
+		resources :base_sets, :only => [:new, :create] do
+			get :withdraw, :on => :collection
+			delete :destroy, :on => :collection
+		end
+
 		collection do
 			get :import, :action => :import
 			post :import, :action => :import_students
@@ -39,7 +36,7 @@ Rails.application.routes.draw do
 		end
 	end
 
-	resources :teachers do
+	resources :teachers, :concerns => [:lendable] do
 		collection do
 			get :query
 		end
@@ -51,5 +48,6 @@ Rails.application.routes.draw do
 			get :query
 		end
 	end
+
 	resources :aliases, :only => [:index, :new, :create, :destroy]
 end

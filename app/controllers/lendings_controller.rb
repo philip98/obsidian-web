@@ -8,62 +8,49 @@ class LendingsController < ApplicationController
 
 	def create
 		params[:isbns].each do |isbn|
-			@book = book_lookup(isbn)
-			if params[:base_set]
-				begin
-					@person.lend_base_set(@book)
-				rescue ActiveRecord::RecordNotUnique
-					flash_message :warning, "#{@person.name} hat das Buch #{@book.display_title}"
-						" schon bekommen"
-				end
-			else
-				@person.lend_book(@book)
-			end
+			next if isbn.blank?
+			next if !(book = book_lookup(isbn))
+			@person.lend_book(book)
 		end
-		if @person.is_a?(Student)
-			redirect_back_or student_url(@person.id)
-		elsif @person.is_a?(Teacher)
-			redirect_back_or teacher_url(@person.id)
+
+		if student?
+			redirect_back_or student_url(@person)
+		else
+			redirect_back_or teacher_url(@person)
 		end
 	end
 
-	def remove
+	def withdraw
 
 	end
 
 	def destroy
 		params[:isbns].each do |isbn|
-			if isbn.blank?
-				next
-			end
-			@book = book_lookup(isbn)
-			if params[:base_set]
-				@person.return_base_set(@book)
-			else
-				@person.return_book(@book)
-			end
+			next if isbn.blank?
+			next if !(book = book_lookup(isbn))
+			@person.return_book(book)
 		end
-		if @person.is_a?(Student)
-			redirect_back_or student_url(@person.id)
-		elsif @person.is_a?(Teacher)
-			redirect_back_or teacher_url(@person.id)
+		if student?
+			redirect_back_or student_url(@person)
+		else
+			redirect_back_or teacher_url(@person)
 		end
 	end
 
+	def student?
+		params[:teacher_id].nil?
+	end
+	helper_method :student?
+
 	private
 		def correct_school
-			if params[:type] == "students"
-				@person = Student.find_by(:id => params[:id])
-			elsif params[:type] == "teachers"
-				@person = Teacher.find_by(:id => params[:id])
+			if student?
+				@person = current_school.students.find_by(:id => params[:student_id])
 			else
-				@person = nil
+				@person = current_school.teachers.find_by(:id => params[:teacher_id])
 			end
 			if not @person
 				flash_message :danger, "Person nicht gefunden"
-				redirect_to root_url
-			elsif not current_school? @person.school
-				flash_message :danger, "Person wurde in dieser Schule nicht gefunden"
 				redirect_to root_url
 			end
 		end

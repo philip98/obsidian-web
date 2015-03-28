@@ -5,8 +5,8 @@
 		:class => "btn btn-default" %>
 </h1>
 <section class="student_buttons">
-	<%= link_to "Ausleihe buchen", new_lending_path("students", @student.id), :class => "btn btn-primary" %>
-	<%= link_to "Rückgabe buchen", delete_lending_path("students", @student.id), :class => "btn btn-primary" %>
+	<%= link_to "Ausleihe buchen", new_student_lending_path(@student), :class => "btn btn-primary" %>
+	<%= link_to "Rückgabe buchen", withdraw_student_lendings_path(@student), :class => "btn btn-primary" %>
 </section>
 <div class="row">
 	<div class="col-md-5">
