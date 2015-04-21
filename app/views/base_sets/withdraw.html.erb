@@ -1,0 +1,15 @@
+<% provide(:title, "Rückgabe buchen") %>
+<h1>R&uuml;ckgabe buchen</h1>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_tag student_base_sets_path(@person), :method => :delete do %>
+			<h3>
+				<%= @person.name %>
+				<small><%= @person.display_class %></small>
+			</h3>
+			<%= render "shared/isbns" %>
+			<%= submit_tag "Zurückgeben", :class => "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>

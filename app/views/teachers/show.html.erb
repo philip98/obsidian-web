@@ -4,8 +4,8 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<section class="teacher_buttons">
-			<%= link_to "Ausleihe buchen", new_lending_path("teachers", @teacher.id), :class => "btn btn-primary" %>
-			<%= link_to "Rückgabe buchen", delete_lending_path("teachers", @teacher.id), :class => "btn btn-primary" %>
+			<%= link_to "Ausleihe buchen", new_teacher_lending_path(@teacher), :class => "btn btn-primary" %>
+			<%= link_to "Rückgabe buchen", withdraw_teacher_lendings_path(@teacher), :class => "btn btn-primary" %>
 		</section>
 		<section class="books">
 			<h3 class="center">Ausleihen</h3>
