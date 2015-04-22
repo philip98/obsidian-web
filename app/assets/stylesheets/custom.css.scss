@@ -265,8 +265,8 @@ a.book_title {
 span.twitter-typeahead {
 	width: 100%;
 	input[type=text] {
-		margin-top: 10px;
 		width: 250px;
+		margin-bottom: 0px;
 	}
 	.tt-dropdown-menu {
 		position: absolute;
@@ -319,6 +319,7 @@ span.twitter-typeahead {
 .input-group {
 	span.twitter-typeahead {
 		display: block !important;
+		margin-bottom: 0px;
 		.tt-dropdown-menu {
 			top: 32px !important;
 		}
