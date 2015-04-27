@@ -18,6 +18,22 @@ class ActiveSupport::TestCase
 		end
 	end
 
+	def assert_redirect_and_flash
+		assert_not (flash[:danger].nil? || flash[:danger].empty?)
+		assert_response :redirect
+	end
+
+	def should_get(action, options=nil)
+		get action, options
+		assert (flash[:danger].nil? || flash[:danger].empty?)
+		assert_response :success
+	end
+
+	def should_not_get(action, options=nil)
+		get action, options
+		assert_redirect_and_flash
+	end
+
 	private
 		def integration_test?
 			defined?(post_via_redirect)

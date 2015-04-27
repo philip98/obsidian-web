@@ -9,9 +9,4 @@ class BookTest < ActiveSupport::TestCase
 		@book.title = ""
 		assert_not @book.valid?
 	end
-
-	test "form should be present" do
-		@book.form = ""
-		assert_not @book.valid?
-	end
 end
