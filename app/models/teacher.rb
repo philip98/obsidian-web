@@ -7,11 +7,13 @@ class Teacher < ActiveRecord::Base
 	validates :school, :presence => true
 
 	def lend_book(book)
-		self.lendings.create(:book => book)
+		self.lendings.create(:book => book) if book
 	end
 
 	def return_book(book)
-		self.lendings.find_by(:book => book).destroy
+		if book && (l = self.lendings.find_by(:book => book))
+			l.destroy
+		end
 	end
 
 	def lend_base_set(book)

@@ -7,9 +7,8 @@ class LendingsController < ApplicationController
 	end
 
 	def create
-		params[:isbns].each do |isbn|
-			next if isbn.blank?
-			next if !(book = book_lookup(isbn))
+		books = params[:isbns].map{|isbn| book_lookup isbn}.compact
+		books.each do |book|
 			@person.lend_book(book)
 		end
 
@@ -25,9 +24,8 @@ class LendingsController < ApplicationController
 	end
 
 	def destroy
-		params[:isbns].each do |isbn|
-			next if isbn.blank?
-			next if !(book = book_lookup(isbn))
+		books = params[:isbns].map{|isbn| book_lookup isbn}.compact
+		books.each do |book|
 			@person.return_book(book)
 		end
 		if student?

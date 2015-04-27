@@ -25,7 +25,7 @@ class SchoolsController < ApplicationController
 		@school = School.find(params[:id])
 		if @school.update_attributes(params.require(:school).permit(:password,
 			:password_confirmation))
-			flash_massage :success, "Passwort geändert"
+			flash_message :success, "Passwort geändert"
 			redirect_to root_url
 		else
 			render "edit"

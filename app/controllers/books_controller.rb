@@ -11,13 +11,14 @@ class BooksController < ApplicationController
 		if !@book
 			flash_message :danger, "Buch konnte nicht gefunden werden"
 			redirect_back_or books_url
+		else
+			@classes = Array.new
+			@book.base_sets.each do |base_set|
+				@classes << base_set.student.display_class if base_set && base_set.student
+			end
+			@classes.sort!
+			@classes = @classes.uniq
 		end
-		@classes = Array.new
-		@book.base_sets.each do |base_set|
-			@classes << base_set.student.display_class if base_set && base_set.student
-		end
-		@classes.sort!
-		@classes.uniq!
 	end
 
 	def new

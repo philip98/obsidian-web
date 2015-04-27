@@ -7,13 +7,18 @@ class BaseSetsController < ApplicationController
 	end
 
 	def create
-		params[:isbns].each do |isbn|
-			next if isbn.blank?
-			next if !(book = book_lookup(isbn))
+		books = params[:isbns].map{|isbn| book_lookup isbn}.compact
+		doubles = books.select{|book| books.count(book) > 1}.uniq
+		books = books.uniq
+		
+		doubles.each do |book|
+			flash_message :danger, "#{display_title(book)} wurde doppelt eingescannt"
+		end
+		books.each do |book|
 			begin
 				@person.lend_base_set(book)
 			rescue ActiveRecord::RecordNotUnique
-				flash_message :danger, "#{book.display_title} wurde doppelt eingescannt"
+				flash_message :danger, "#{display_title(book)} wurde bereits ausgegeben"
 			end
 		end
 		redirect_back_or show_class_url(@person.display_class)
@@ -24,9 +29,14 @@ class BaseSetsController < ApplicationController
 	end
 
 	def destroy
-		params[:isbns].each do |isbn|
-			next if isbn.blank?
-			next if !(book = book_lookup(isbn))
+		books = params[:isbns].map{|isbn| book_lookup isbn}.compact
+		doubles = books.select{|book| books.count(book) > 1}.uniq
+		books = books.uniq
+
+		doubles.each do |book|
+			flash_message :danger, "#{display_title(book)} wurde doppelt eingescannt"
+		end
+		books.each do |book|
 			@person.return_base_set(book)
 		end
 		redirect_back_or show_class_url(@person.display_class)
@@ -36,7 +46,7 @@ class BaseSetsController < ApplicationController
 		def correct_school
 			@person = current_school.students.find_by(:id => params[:student_id])
 			if !@person
-				flash_message :notice, "Der Schüler konnte nicht gefunden werden"
+				flash_message :danger, "Der Schüler konnte nicht gefunden werden"
 				redirect_back_or students_url
 			end
 		end
