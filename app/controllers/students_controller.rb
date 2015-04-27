@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
 
 	def show_class
 		params[:list] ||= (Time.now.month >= 9) ? "new" : "old"
-		@graduation_year = form_to_grad(params[:class].to_i)
+		@graduation_year = Student.form_to_grad(params[:class].to_i)
 		if params[:class][-1].match /[0-9]/
 			@data = current_school.students.where("graduation_year = ?", @graduation_year)
 		else

@@ -8,11 +8,6 @@ module ApplicationHelper
 		end
 	end
 
-	def flash_message(type, text)
-		flash[type] ||= []
-		flash[type] << text
-	end
-
 	def render_flash
 		rendered = []
 		flash.each do |type, messages|

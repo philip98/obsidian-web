@@ -39,8 +39,24 @@ class Student < ActiveRecord::Base
 		end
 	end
 
+	def self.form_to_grad form
+		if Time.current.mon >= 9
+			13 + Time.current.year - form
+		else
+			12 + Time.current.year - form
+		end
+	end
+
+	def self.grad_to_form grad
+		if Time.current.mon >= 9
+			13 + Time.current.year - grad
+		else
+			12 + Time.current.year - grad
+		end
+	end
+
 	def display_class
-		"#{grad_to_form(graduation_year)}#{class_letter}"
+		"#{Student.grad_to_form(graduation_year)}#{class_letter}"
 	end
 
 	def self.import(file, graduation_year, class_letter, school)

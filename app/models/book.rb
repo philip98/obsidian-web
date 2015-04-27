@@ -7,7 +7,15 @@ class Book < ActiveRecord::Base
 	validates :title, :presence => true
 	validates :isbn, :length => {:is => 13}, :presence => true, :uniqueness => true
 
-	def used_by(school)
+	def used_by school
 		Usage.exists?(:school => school, :book => self)
+	end
+
+	def display_title school
+		if school && (u = school.usages.find_by(:book => self))
+			"#{self.title} #{u.form}"
+		else
+			""
+		end
 	end
 end
