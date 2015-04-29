@@ -8,8 +8,7 @@ class AliasesController < ApplicationController
 	end
 
 	def new
-		@alias = Alias.new
-		@alias.book = Book.new
+		@isbn = params[:isbn]
 		respond_to do |format|
 			format.js
 			format.html
@@ -17,13 +16,10 @@ class AliasesController < ApplicationController
 	end
 
 	def create
-		al = nil
-		if params[:book_id]
-			al = current_school.aliases.new(params.permit(:book_id, :name))
-		elsif params[:alias]
-			al = current_school.aliases.new(alias_params.merge(:school => current_school))
-		end
-		if al && al.save
+		book = current_school.books.find_by(:id => params[:book_id]) ||
+			current_school.books.find_by(:isbn => params[:isbn])
+		@alias = current_school.aliases.new :name => params[:name], :book => book
+		if @alias.save
 			flash_message :success, "Alias erstellt"
 			redirect_back_or aliases_path
 		else
@@ -45,16 +41,9 @@ class AliasesController < ApplicationController
 
 	private
 		def correct_school
-			if !(al = Alias.find_by(:id => params[:id]))
+			unless current_school.aliases.find_by(:id => params[:id])
 				flash_message :danger, "Alias konnte nicht gefunden werden"
 				redirect_to aliases_url
-			elsif !current_school?(al.school)
-				flash_message :danger, "Dieser Alias gehört zu einer anderen Schule"
-				redirect_to aliases_url
 			end
-		end
-
-		def alias_params
-			params.require(:alias).permit(:name, :book_attributes => [:isbn])
 		end
 end

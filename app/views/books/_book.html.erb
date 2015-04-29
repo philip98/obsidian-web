@@ -4,6 +4,7 @@
 		<%= link_to display_title(book), book, :class => "student_name" %>
 	</span>
 	<span class="float-right">
+		<%= link_to "", new_alias_path(:isbn => book.isbn), :class => "btn btn-success btn-xs glyphicon glyphicon-plus" %>
 		<%= link_to "", book_path(book), :method => :delete, :data => {:confirm => "Sicher?"}, :class => 
 			"btn btn-danger btn-xs glyphicon glyphicon-remove" %>
 	</span>

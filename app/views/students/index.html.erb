@@ -20,6 +20,7 @@
 	</div>
 </div>
 
+<% if @students.any? %>
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<%= form_tag mass_edit_students_path do %>
@@ -43,3 +44,4 @@
 		<% end %>
 	</div>
 </div>
+<% end %>
