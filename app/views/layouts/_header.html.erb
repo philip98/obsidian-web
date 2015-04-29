@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-custom navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-0">
@@ -10,11 +10,13 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-0">
 			<ul class="nav navbar-nav navbar-right">
+				<% if logged_in? %>
 				<form class="navbar-form navbar-left" role="search">
-					<li>
-						<%= text_field_tag :search, "", :placeholder => "Suche", :class => "form-control", :id => "searchField", :data => {:students => query_students_url, :teachers => query_teachers_url, :books => query_books_url} if logged_in? %>
-					</li>
+					<div class="form-group">
+					<%= text_field_tag :search, "", :placeholder => "Suche", :class => "form-control", :id => "searchField", :data => {:students => query_students_url, :teachers => query_teachers_url, :books => query_books_url} %>
+				</div>
 				</form>
+				<% end %>
 				<li><%= link_to "Startseite", root_path %></li>
 				<% if logged_in? %>
 				<li><%= link_to "Schüler", students_path %></li>
@@ -23,12 +25,14 @@
 				<li><%= link_to "Aliasse", aliases_path %></li>
 				<li class="divider"></li>
 				<li><%= link_to "Einstellungen", edit_school_path(current_school) %></li>
+				<% end %>
+				<li><%= link_to "Hilfe", help_path%></li>
+				<% if logged_in? %>
 				<li><%= link_to "Logout", logout_path, :method => "delete" %></li>
 				<% else %>
 				<li><%= link_to "Login", login_path %>
 				<% end %>
 				<li class="divider"></li>
-				<li><%= link_to "Hilfe", help_path%></li>
 			</ul>
 		</div>
 	</div>

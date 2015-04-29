@@ -1,3 +1,6 @@
+$navbar-inverse-bg: #0088CC;
+$navbar-inverse-fg: #ffffff;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -41,6 +44,9 @@ h1 {
 	letter-spacing: -2px;
 	margin-bottom: 30px;
 	text-align: center;
+	a:link {
+		margin-left: 10px;
+	}
 }
 
 h2 {
@@ -60,6 +66,7 @@ p {
 #logo {
 	float: left;
 	margin-right: 10px;
+	margin-left: 10px;
 	font-size: 1.7em;
 	color: white;
 	text-transform: uppercase;
@@ -264,8 +271,9 @@ a.book_title {
 
 span.twitter-typeahead {
 	width: 100%;
+	margin-left: 10px;
 	input[type=text] {
-		width: 250px;
+		margin-right: 10px;
 		margin-bottom: 0px;
 	}
 	.tt-dropdown-menu {
