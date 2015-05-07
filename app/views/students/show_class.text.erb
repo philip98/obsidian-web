@@ -1,0 +1,21 @@
+Versäumnisliste <%= params[:class] %>
+
+<% if @bs.flatten(2).empty? || @data.map{|st| st.lendings}.flatten.empty? %>
+-- leer --
+<% else %>
+Noch nicht zurückgegebene Bücher:
+	<% @data.each do |student| %>
+		<% student.base_sets.each do |base_set| %>
+			<% unless @books_new.include?(base_set.book) %>
+<%= student.name.ljust 40, "." %><%= display_title(base_set.book).ljust 40, " "%>
+			<% end %>
+		<% end %>
+	<% end %>
+
+Sonstige ausstehende Ausleihen:
+	<% @data.each do |student| %>
+		<% student.lendings.each do |lending| %>
+<%= student.name.ljust 40, "." %><%= display_title(lending.book).ljust 40, " " %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -61,4 +61,9 @@ class ApplicationController < ActionController::Base
 	def display_title book
 		"#{book.display_title current_school}(#{book.isbn})"
 	end
+
+	def form book
+		b = current_school.usages.find_by(:book => book)
+		b.form if b
+	end
 end

@@ -5,6 +5,7 @@
 		:class => "btn btn-success glyphicon glyphicon-plus" %>
 	<%= link_to "", import_students_path(:class_letter => @class_letter, :graduation_year => @graduation_year),
 		:class => "btn btn-success glyphicon glyphicon-import", :remote => true %>
+	<%= link_to "", show_class_path(params[:class], :format => :text), :class => "btn btn-warning glyphicon glyphicon-export" %>
 </h1>
 
 <div class="row">

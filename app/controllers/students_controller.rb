@@ -20,12 +20,14 @@ class StudentsController < ApplicationController
 				@class_letter)
 		end
 		@students = @data.order("name").paginate(:page => params[:page])
+		@books_new = current_school.books.joins(:usages).where("usages.form LIKE ?", "%#{13+Time.now.year-@graduation_year}%")
+		@books_old = current_school.books.joins(:usages).where("usages.form LIKE ?", "%#{12+Time.now.year-@graduation_year}%")
 		if params[:list] == "old"
-			display_form = 12 + Time.now.year - @graduation_year
+			@books = @books_old
 		elsif params[:list] == "new"
-			display_form = 13 + Time.now.year - @graduation_year
+			@books = @books_new
 		end
-		@books = current_school.books.joins(:usages).where("usages.form LIKE ?", "%#{display_form}%")
+
 		@bs = Hash.new
 		@students.each do |student|
 			@bs[student] = Hash.new
@@ -36,6 +38,7 @@ class StudentsController < ApplicationController
 		store_location
 		respond_to do |format|
 			format.html
+			format.text
 			format.js
 		end
 	end
