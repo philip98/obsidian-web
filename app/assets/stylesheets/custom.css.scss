@@ -6,6 +6,7 @@ $navbar-inverse-fg: #ffffff;
 
 $gray-medium-light: #eaeaea;
 $black: #000000;
+$light-green: #66ff66;
 
 @mixin box_sizing {
 	-moz-box-sizing: border-box;
@@ -340,4 +341,8 @@ span.twitter-typeahead {
 
 .input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
 	top: 28px !important;
+}
+
+tr.free {
+	background-color: $light-green;
 }

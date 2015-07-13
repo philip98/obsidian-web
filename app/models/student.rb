@@ -59,6 +59,10 @@ class Student < ActiveRecord::Base
 		"#{Student.grad_to_form(graduation_year)}#{class_letter}"
 	end
 
+	def free?
+		self.base_sets.empty? && self.lendings.empty?
+	end
+
 	def self.import(file, graduation_year, class_letter, school)
 		count = 0
 		CSV.foreach(file.path, :col_sep => "\t", :headers => true) do |r|
