@@ -21,9 +21,9 @@
 		<% books.each do |book| %>
 		<td>
 			<% if bs[student] and bs[student][book] %>
-			<input type="checkbox" readonly checked disabled>
+			<input type="checkbox" class="lent" readonly checked>
 			<% else %>
-			<input type="checkbox" readonly disabled>
+			<input type="checkbox" class="lent" readonly>
 			<% end %>
 		</td>
 		<% end %>

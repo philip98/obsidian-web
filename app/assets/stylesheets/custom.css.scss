@@ -346,3 +346,7 @@ span.twitter-typeahead {
 tr.free {
 	background-color: $light-green;
 }
+
+input.lent[type=checkbox] {
+	pointer-events: none;
+}
