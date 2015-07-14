@@ -63,7 +63,6 @@ class ApplicationController < ActionController::Base
 	end
 
 	def form book
-		b = current_school.usages.find_by(:book => book)
-		b.form if b
+		book.form current_school
 	end
 end
