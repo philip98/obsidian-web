@@ -60,7 +60,7 @@ class Student < ActiveRecord::Base
 
 	def free?
 		!self.base_sets.any? do |bs|
-			!bs.book.form(school).include? Student.grad_to_form(graduation_year - 1)
+			!bs.book.form(school).include? Student.grad_to_form(graduation_year - 1).to_s
 		end && self.lendings.empty?
 	end
 
