@@ -10,6 +10,11 @@ class Book < ActiveRecord::Base
 	def used_by school
 		Usage.exists?(:school => school, :book => self)
 	end
+	
+	def form school
+		u = school.usages.find_by(:book => self)
+		u.form if u
+	end
 
 	def display_title school
 		if school && (u = school.usages.find_by(:book => self))
