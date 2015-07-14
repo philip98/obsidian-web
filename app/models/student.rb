@@ -60,7 +60,9 @@ class Student < ActiveRecord::Base
 	end
 
 	def free?
-		self.base_sets.empty? && self.lendings.empty?
+		!self.base_sets.any? do |bs|
+			!bs.book.form(school).include? Student.grad_to_form(graduation_year - 1)
+		end && self.lendings.empty?
 	end
 
 	def self.import(file, graduation_year, class_letter, school)
