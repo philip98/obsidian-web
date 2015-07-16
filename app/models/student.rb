@@ -58,10 +58,14 @@ class Student < ActiveRecord::Base
 		"#{Student.grad_to_form(graduation_year)}#{class_letter}"
 	end
 
-	def free?
-		!self.base_sets.any? do |bs|
+	def partially_free?
+		!base_sets.any? do |bs| 
 			!bs.book.form(school).include? Student.grad_to_form(graduation_year - 1).to_s
-		end && self.lendings.empty?
+		end
+	end
+
+	def free?
+		partially_free? && self.lendings.empty?
 	end
 
 	def self.import(file, graduation_year, class_letter, school)

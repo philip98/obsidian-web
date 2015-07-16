@@ -10,7 +10,7 @@
 </thead>
 <tbody>
 	<% students.each do |student| %>
-	<tr<% if student.free? %> class="free" <% end %>>
+	<tr<% if student.free? %> class="free"<% elsif student.partially_free? %> class="partially-free"<% end %>>
 		<td>
 			<%= link_to "", new_student_base_set_path(student), :class => 
 				"btn btn-xs btn-warning glyphicon glyphicon-export" %>

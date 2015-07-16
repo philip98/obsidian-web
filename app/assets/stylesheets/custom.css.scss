@@ -6,7 +6,8 @@ $navbar-inverse-fg: #ffffff;
 
 $gray-medium-light: #eaeaea;
 $black: #000000;
-$light-green: #66ff66;
+$light-green: #88ff88;
+$light-blue: #8888ff;
 
 @mixin box_sizing {
 	-moz-box-sizing: border-box;
@@ -345,6 +346,10 @@ span.twitter-typeahead {
 
 tr.free {
 	background-color: $light-green !important;
+}
+
+tr.partially-free {
+	background-color: $light-blue !important;
 }
 
 input.lent[type=checkbox] {
