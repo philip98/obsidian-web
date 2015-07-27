@@ -115,16 +115,6 @@ class StudentsController < ApplicationController
 		redirect_back_or students_url
 	end
 
-	def query
-		students = current_school.students.where("name LIKE ?", "#{params[:q]}%").limit(10)
-		st = students.map do |s|
-			{:name => s.name, :class => s.display_class, :url => student_url(s)}
-		end
-		respond_to do |format|
-			format.json { render :json => st }
-		end
-	end
-
 	def mass_edit
 		redirect_back_or students_url unless ["graduation_year", "class_letter"].include?(params[:field])
 		count = 0

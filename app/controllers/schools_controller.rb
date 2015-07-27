@@ -39,6 +39,25 @@ class SchoolsController < ApplicationController
 		redirect_to root_url
 	end
 
+	def query
+		term = params[:term]
+		books = current_school.books.where("title LIKE ?", "#{term}%").limit(10)
+		result = books.map do |book|
+			{:label => display_title(book), :value => book_url(book)}
+		end
+		students = current_school.students.where("name LIKE ?", "%#{term}%").limit(10)
+		result += students.map do |student|
+			{:label => "#{student.name} - #{student.display_class}", :value => student_url(student)}
+		end
+		teachers = current_school.teachers.where("name LIKE ?", "%#{term}%").limit(10)
+		result += teachers.map do |teacher|
+			{:label => teacher.name, :value => teacher_url(teacher)}
+		end
+		respond_to do |format|
+			format.json {render :json => result}
+		end
+	end
+
 	private
 		def school_params
 			params.require(:school).permit(:name, :password, :password_confirmation)

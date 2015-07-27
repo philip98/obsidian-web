@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 	root "static#home"
+	get "query" => "schools#query"
 	get "about" => "static#about"
 	get "contact" => "static#contact"
 	get "help" => "static#help"
@@ -16,12 +17,7 @@ Rails.application.routes.draw do
 		end
 	end
 
-	resources :schools, :only => [:new, :create, :edit, :update, :destroy] do
-		collection do
-			get :query
-		end
-	end
-
+	resources :schools, :only => [:new, :create, :edit, :update, :destroy]
 	resources :students, :concerns => [:lendable] do
 		resources :base_sets, :only => [:new, :create] do
 			get :withdraw, :on => :collection
@@ -31,21 +27,15 @@ Rails.application.routes.draw do
 		collection do
 			get :import, :action => :import
 			post :import, :action => :import_students
-			get :query
 			post :mass_edit
 		end
 	end
 
-	resources :teachers, :concerns => [:lendable] do
-		collection do
-			get :query
-		end
-	end
+	resources :teachers, :concerns => [:lendable]
 
 	resources :books, :only => [:show, :new, :create, :index, :destroy] do
 		collection do
 			get :lookup
-			get :query
 		end
 	end
 
