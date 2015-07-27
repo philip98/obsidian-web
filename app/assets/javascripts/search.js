@@ -28,9 +28,11 @@ $(document).ready(function() {
 		source: function(query, cb) {
 			$.ajax(field.attr("data-books"), {data: {q: query}, dataType: "json", method: "get", success: cb});
 		},
-		displayKey: "title",
 		templates: {
-			header: "<h3>B&uuml;cher</h3>"
+			header: "<h3>B&uuml;cher</h3>",
+			suggestion: function(data) {
+				return "<p>" + data.title + "</p>";
+			}
 		}
 	});
 	field.on("typeahead:selected", function(event, suggestion, dataset) {

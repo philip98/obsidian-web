@@ -7,6 +7,8 @@
 <section class="student_buttons">
 	<%= link_to "Ausleihe buchen", new_student_lending_path(@student), :class => "btn btn-primary" %>
 	<%= link_to "Rückgabe buchen", withdraw_student_lendings_path(@student), :class => "btn btn-primary" %>
+	<%= link_to "Basissatz ausleihen", new_student_base_set_path(@student), :class => "btn btn-primary" %>
+	<%= link_to "Basissatz zurückgeben", withdraw_student_base_sets_path(@student), :class => "btn btn-primary" %>
 </section>
 <div class="row">
 	<div class="col-md-5">

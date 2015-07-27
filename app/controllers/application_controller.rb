@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def display_title book
-		"#{book.display_title current_school}(#{book.isbn})"
+		"#{book.display_title current_school}"
 	end
 
 	def form book

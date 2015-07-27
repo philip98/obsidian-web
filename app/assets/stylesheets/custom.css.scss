@@ -272,11 +272,12 @@ a.book_title {
 }
 
 span.twitter-typeahead {
-	width: 100%;
+	width: 200px;
 	margin-left: 10px;
 	input[type=text] {
 		margin-right: 10px;
 		margin-bottom: 0px;
+		width: 100%;
 	}
 	.tt-dropdown-menu {
 		position: absolute;
@@ -285,7 +286,6 @@ span.twitter-typeahead {
 		z-index: 1000;
 		display: none;
 		float: left;
-		min-width: 160px;
 		padding: 5px 0;
 		margin: 2px 0 0;
 		list-style: none;
