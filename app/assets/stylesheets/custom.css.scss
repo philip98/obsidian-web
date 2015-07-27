@@ -271,79 +271,6 @@ a.book_title {
 	padding-right: 10px;
 }
 
-span.twitter-typeahead {
-	width: 200px;
-	margin-left: 10px;
-	input[type=text] {
-		margin-right: 10px;
-		margin-bottom: 0px;
-		width: 100%;
-	}
-	.tt-dropdown-menu {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		z-index: 1000;
-		display: none;
-		float: left;
-		padding: 5px 0;
-		margin: 2px 0 0;
-		list-style: none;
-		font-size: 14px;
-		text-align: left;
-		background-color: #ffffff;
-		border: 1px solid #cccccc;
-		border: 1px solid rgba(0, 0, 0, 0.15);
-		border-radius: 4px;
-		-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-		box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-		background-clip: padding-box;
-		h3 {
-			padding-left: 20px;
-		}
-	}
-	.tt-suggestion {
-		> p {
-			display: block;
-			padding: 3px 20px;
-			margin-bottom: 0px;
-			clear: both;
-			font-weight: normal;
-			line-height: 1.42857143;
-			color: #333333;
-			white-space: nowrap;
-			&:hover, &:focus {
-				color: #ffffff;
-				text-decoration: none;
-				outline: 0;
-				background-color: #428bca;
-			}
-		}
-		.tt-cursor {
-			color: #ffffff;
-			background-color: #428bca;
-		}
-	}
-}
-
-.input-group {
-	span.twitter-typeahead {
-		display: block !important;
-		margin-bottom: 0px;
-		.tt-dropdown-menu {
-			top: 32px !important;
-		}
-	}
-}
-
-.input-group.input-group-lg span.twitter-typeahead .tt-dropdown-menu {
-	top: 44px !important;
-}
-
-.input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
-	top: 28px !important;
-}
-
 tr.free {
 	background-color: $light-green !important;
 }
@@ -354,4 +281,13 @@ tr.partially-free {
 
 input.lent[type=checkbox] {
 	pointer-events: none;
+}
+
+#searchField {
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+
+li.dropdown {
+	pointer-events: auto;
 }
