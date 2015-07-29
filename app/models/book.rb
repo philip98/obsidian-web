@@ -12,13 +12,13 @@ class Book < ActiveRecord::Base
 	end
 	
 	def form school
-		u = school.usages.find_by(:book => self)
+		u = usages.find_by(:school => school)
 		u.form if u
 	end
 
 	def display_title school
-		if school && (u = school.usages.find_by(:book => self))
-			"#{self.title} #{u.form}"
+		if school && form school
+			"#{self.title} (#{form school})"
 		else
 			""
 		end
