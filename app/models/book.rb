@@ -17,7 +17,7 @@ class Book < ActiveRecord::Base
 	end
 
 	def display_title school
-		if school && form school
+		if school && form(school)
 			"#{self.title} (#{form school})"
 		else
 			""
