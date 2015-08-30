@@ -57,12 +57,4 @@ class ApplicationController < ActionController::Base
 	def store_location
 		session[:forwarding_url] = request.url if request.get?
 	end
-
-	def display_title book
-		book.display_title current_school
-	end
-
-	def form book
-		book.form current_school
-	end
 end

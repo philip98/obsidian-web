@@ -4,4 +4,9 @@ class Lending < ActiveRecord::Base
 
 	validates :person, :presence => true
 	validates :book, :presence => true
+	validates :used_by_school
+
+	def used_by_school
+		errors.add(:book, " wird nicht von der Schule verwendet") unless person.school == book.school
+	end
 end
