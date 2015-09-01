@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2.0'
 gem 'puma'
+gem 'bcrypt'
 gem 'jsonapi-resources', :git => 'https://github.com/cerebris/jsonapi-resources', :branch => 'master'
 gem 'rspec_api_documentation'
 gem 'apitome'

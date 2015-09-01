@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-	root "static#home"
+	root :to => redirect('docs')
+
 	get "query" => "schools#query"
 	get "about" => "static#about"
 	get "contact" => "static#contact"
