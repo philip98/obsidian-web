@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :schools
+	devise_for :schools, :controllers => {:sessions => "sessions"}
 	root :to => redirect('docs')
 
 	get "query" => "schools#query"

@@ -1,21 +1,13 @@
-class SessionsController < ApplicationController
-	def new
-
-	end
+class SessionsController < Devise::SessionsController
+	respond_to :json
 
 	def create
-		school = School.find_by(:name => params[:session][:school])
-		if school && school.authenticate(params[:session][:password])
-			log_in school
-			redirect_back_or root_url
-		else
-			flash.now[:danger] = ["Ungültiges Passwort"]
-			render "new"
+		super do |school|
+			data = {
+				:token => school.authentication_token,
+				:name => school.name
+			}
+			render :json => data, :status => 201 and return
 		end
-	end
-
-	def destroy
-		log_out
-		redirect_to root_url
 	end
 end
