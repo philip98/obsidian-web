@@ -8,6 +8,7 @@ gem 'rspec_api_documentation'
 gem 'apitome'
 gem 'rspec-rails', '~> 3.3.0'
 gem 'spring-commands-rspec', :platform => :ruby
+gem 'devise'
 
 group :development, :test do
 	gem 'byebug'

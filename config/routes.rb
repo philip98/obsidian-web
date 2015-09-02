@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :schools
 	root :to => redirect('docs')
 
 	get "query" => "schools#query"
