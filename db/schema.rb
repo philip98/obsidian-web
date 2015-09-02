@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902130026) do
+ActiveRecord::Schema.define(version: 20150902212057) do
 
   create_table "aliases", force: :cascade do |t|
     t.string  "name",      null: false
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150902130026) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
   end
 
   add_index "schools", ["name"], name: "index_schools_on_name", unique: true

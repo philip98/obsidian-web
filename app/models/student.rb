@@ -1,5 +1,4 @@
 class Student < ActiveRecord::Base
-	require 'csv'
 	belongs_to :school
 	has_many :lendings, :as => :person, :dependent => :destroy
 	has_many :lent_books, :through => :lendings
@@ -13,21 +12,4 @@ class Student < ActiveRecord::Base
 	before_save {
 		self.class_letter = class_letter.downcase if class_letter
 	}
-	
-	def self.import(file, graduation_year, class_letter, school)
-		count = 0
-		CSV.foreach(file.path, :col_sep => "\t", :headers => true) do |r|
-			row = r.to_hash
-			name = row["name"] || "#{row['nachname']} #{row['vorname']}" || next
-			gr = graduation_year || row["abschlussjahr"] || next
-			cl = class_letter || row["klassenbuchstabe"] || ""
-			s = Student.new :name => name, :graduation_year => gr, :class_letter => cl, :school => school
-			if s.save
-				count += 1
-			else
-				return s.errors.full_messages.join("\n")
-			end
-		end
-		return count
-	end
 end

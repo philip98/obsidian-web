@@ -2,7 +2,7 @@ class School < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 	devise :database_authenticatable, :registerable,
-		:recoverable, :rememberable, :trackable, :validatable
+		:rememberable, :trackable, :authentication_keys => [:name]
 	has_many :students
 	has_many :teachers
 	has_many :usages
@@ -10,6 +10,7 @@ class School < ActiveRecord::Base
 	has_many :aliases
 
 	validates :name, :presence => true, :uniqueness => true
+	validates :encrypted_password, :presence => true
 
 	before_save :ensure_authentication_token
 
