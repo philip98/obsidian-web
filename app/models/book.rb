@@ -5,8 +5,8 @@ class Book < ActiveRecord::Base
 	has_many :base_sets
 	has_many :lendings
 
-	validates :title, :presence => true
-	validates :isbn, :length => {:is => 13}, :presence => true, :uniqueness => true
+	validates :title, :presence => true, :uniqueness => {:scope => :school}
+	validates :isbn, :length => {:is => 13}, :presence => true, :uniqueness => {:scope => :school}
 	validates :school, :presence => true
 	validates :form, :presence => true
 end

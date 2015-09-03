@@ -15,6 +15,7 @@ group :development, :test do
 	gem 'sqlite3'
 	gem 'spring', :platform => :ruby
 	gem 'factory_girl_rails', '~> 4.5.0'
+	gem 'shoulda-matchers'
 end
 
 group :production do

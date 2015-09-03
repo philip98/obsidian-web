@@ -2,27 +2,28 @@ require 'rails_helper'
 
 RSpec.describe School, type: :model do
 	it 'has a valid factory' do
-		expect(create(:school)).to be_valid
+		expect(build(:school)).to be_valid
 	end
 
-	it 'is invalid without name' do
-		expect(build(:school, :name => nil)).not_to be_valid
-	end
+	it {should validate_presence_of(:name)}
+	it {should validate_presence_of(:encrypted_password)}
 
-	it 'is invalid without unique name' do
-		create(:school)
-		expect(build(:school)).not_to be_valid
-	end
-
-	it 'is invalid without password' do
-		expect(build(:school, :password => nil)).not_to be_valid
-	end
+	it {should validate_uniqueness_of(:name)}
+	it {should have_many(:students)}
+	it {should have_many(:books)}
+	it {should have_many(:teachers)}
+	it {should have_many(:aliases)}
 
 	it 'is automatically creates a authentication_token' do
-		expect(create(:school).authentication_token).not_to be_empty
+		school = create(:school)
+		expect(school.authentication_token).to be
+		expect(school.authentication_token).not_to be_empty
+		school.destroy
 	end
 
 	it 'automatically lower-cases its name' do
-		expect(create(:school, :name => 'MGM').name).to eq('mgm')
+		school = create(:school, :name => 'MGM')
+		expect(school.name).to eq('mgm')
+		school.destroy
 	end
 end

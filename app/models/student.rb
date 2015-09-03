@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
 
 	validates :class_letter, :length => {:maximum => 1}
 	validates :graduation_year, :numericality => {:greater_than => 2000}
+	validates :graduation_year, :presence => true
 	validates :name, :presence => true
 	validates :school, :presence => true
 
