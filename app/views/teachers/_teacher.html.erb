@@ -1,8 +1,0 @@
-<li>
-	<span class="float-left"><%= link_to teacher.name, teacher, :class => "teacher_name" %></span>
-	<span class="float-right">
-		<%= link_to "", edit_teacher_path(teacher), :class => "btn btn-default btn-xs glyphicon glyphicon-pencil" %>
-		<%= link_to "", teacher_path(teacher), :method => :delete, :data => {:confirm => "Sicher?"}, :class =>
-			"btn btn-danger btn-xs glyphicon glyphicon-remove" %>
-	</span>
-</li>
