@@ -11,16 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902212057) do
+ActiveRecord::Schema.define(version: 20150903174919) do
 
   create_table "aliases", force: :cascade do |t|
-    t.string  "name",      null: false
+    t.string  "name",    null: false
     t.integer "book_id"
-    t.integer "school_id"
   end
 
-  add_index "aliases", ["school_id", "book_id"], name: "index_aliases_on_school_id_and_book_id"
-  add_index "aliases", ["school_id", "name"], name: "index_aliases_on_school_id_and_name", unique: true
+  add_index "aliases", ["book_id"], name: "index_aliases_on_school_id_and_book_id"
+  add_index "aliases", ["name"], name: "index_aliases_on_school_id_and_name", unique: true
 
   create_table "base_sets", force: :cascade do |t|
     t.integer  "student_id"
