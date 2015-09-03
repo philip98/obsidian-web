@@ -3,4 +3,7 @@ Rails.application.routes.draw do
 	jsonapi_resources :students
 	jsonapi_resources :teachers
 	jsonapi_resources :books
+	jsonapi_resources :aliases
+	jsonapi_resources :lendings
+	jsonapi_resources :base_sets
 end
