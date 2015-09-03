@@ -7,6 +7,7 @@ class Lending < ActiveRecord::Base
 	validate :used_by_school
 
 	def used_by_school
-		errors.add(:book, " wird nicht von der Schule verwendet") unless person.school == book.school
+		errors.add(:book, " wird nicht von der Schule verwendet") unless person and
+			book and person.school == book.school
 	end
 end

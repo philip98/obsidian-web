@@ -7,7 +7,7 @@ class School < ActiveRecord::Base
 	has_many :teachers
 	has_many :usages
 	has_many :books
-	has_many :aliases
+	has_many :aliases, :through => :books
 
 	validates :name, :presence => true, :uniqueness => true
 	validates :encrypted_password, :presence => true

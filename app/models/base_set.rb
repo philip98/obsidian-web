@@ -7,6 +7,7 @@ class BaseSet < ActiveRecord::Base
 	validate :used_by_school
 
 	def used_by_school
-		errors.add(:book, "wird nicht von der Schule verwendet") unless book.school == student.school
+		errors.add(:book, "wird nicht von der Schule verwendet") unless book and
+			student and book.school == student.school
 	end
 end

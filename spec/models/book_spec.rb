@@ -11,15 +11,15 @@ RSpec.describe Book, type: :model do
 	it {should validate_presence_of(:title)}
 	it {should validate_presence_of(:form)}
 
-	it {
+	it do
 		create(:book)
 		should validate_uniqueness_of(:isbn).scoped_to(:school_id)
-	}
+	end
 
-	it {
+	it do
 		create(:book)
 		should validate_uniqueness_of(:title).scoped_to(:school_id)
-	}
+	end
 
 	it {should belong_to(:school)}
 	it {should have_many(:lendings)}
