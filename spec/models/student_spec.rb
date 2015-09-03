@@ -5,6 +5,10 @@ RSpec.describe Student, type: :model do
 		expect(create(:student)).to be_valid
 	end
 
+	it 'is invalid without school' do
+		expect(build(:student, :school => nil)).not_to be_valid
+	end
+
 	it 'is invalid without a name' do
 		expect(build(:student, :name => nil)).not_to be_valid
 	end
