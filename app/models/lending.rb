@@ -10,4 +10,8 @@ class Lending < ActiveRecord::Base
 		errors.add(:book, " wird nicht von der Schule verwendet") unless person and
 			book and person.school == book.school
 	end
+
+	def owner
+		book.school
+	end
 end

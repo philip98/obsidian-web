@@ -9,4 +9,8 @@ class Book < ActiveRecord::Base
 	validates :isbn, :length => {:is => 13}, :presence => true, :uniqueness => {:scope => :school}
 	validates :school, :presence => true
 	validates :form, :presence => true
+
+	def owner
+		school
+	end
 end

@@ -1,2 +1,2 @@
-class BaseSetsController < JSONAPI::ResourceController
+class BaseSetsController < ApplicationController
 end

@@ -10,4 +10,8 @@ class BaseSet < ActiveRecord::Base
 		errors.add(:book, "wird nicht von der Schule verwendet") unless book and
 			student and book.school == student.school
 	end
+
+	def owner
+		book.school
+	end
 end

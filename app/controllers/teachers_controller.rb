@@ -1,2 +1,2 @@
-class TeachersController < JSONAPI::ResourceController
+class TeachersController < ApplicationController
 end

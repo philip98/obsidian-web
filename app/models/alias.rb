@@ -10,4 +10,8 @@ class Alias < ActiveRecord::Base
 	def unique_within_school?
 		errors.add(:alias, "already exists in that school") if book and book.school and book.school.aliases.find_by_name(name)
 	end
+
+	def owner
+		book.school
+	end
 end

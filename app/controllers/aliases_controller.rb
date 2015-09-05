@@ -1,2 +1,2 @@
-class AliasesController < JSONAPI::ResourceController
+class AliasesController < ApplicationController
 end

@@ -5,4 +5,8 @@ class Teacher < ActiveRecord::Base
 
 	validates :name, :presence => true
 	validates :school, :presence => true
+
+	def owner
+		school
+	end
 end

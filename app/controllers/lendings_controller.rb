@@ -1,2 +1,2 @@
-class LendingsController < JSONAPI::ResourceController
+class LendingsController < ApplicationController
 end

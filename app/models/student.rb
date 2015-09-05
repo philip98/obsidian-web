@@ -13,4 +13,8 @@ class Student < ActiveRecord::Base
 	before_save {
 		self.class_letter = class_letter.downcase if class_letter
 	}
+
+	def owner
+		school
+	end
 end
