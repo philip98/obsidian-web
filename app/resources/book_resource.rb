@@ -1,4 +1,4 @@
-class BookResource < JSONAPI::Resource
+class BookResource < BaseResource
 	attributes :isbn, :title, :form
 
 	has_many :aliases

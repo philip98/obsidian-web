@@ -1,4 +1,4 @@
-class BaseSetResource < JSONAPI::Resource
+class BaseSetResource < BaseResource
 	attributes :created_at
 
 	has_one :student

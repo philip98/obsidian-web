@@ -1,4 +1,4 @@
-class LendingResource < JSONAPI::Resource
+class LendingResource < BaseResource
 	attribute :created_at
 
 	has_one :person, :polymorphic => true
