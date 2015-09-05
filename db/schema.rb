@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903174919) do
+ActiveRecord::Schema.define(version: 20150905022153) do
 
   create_table "aliases", force: :cascade do |t|
     t.string  "name",    null: false
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20150903174919) do
 
   add_index "aliases", ["book_id"], name: "index_aliases_on_school_id_and_book_id"
   add_index "aliases", ["name"], name: "index_aliases_on_school_id_and_name", unique: true
+
+  create_table "authentication_tokens", force: :cascade do |t|
+    t.integer  "school_id"
+    t.string   "secret_id"
+    t.string   "hashed_secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authentication_tokens", ["secret_id"], name: "index_authentication_tokens_on_secret_id", unique: true
 
   create_table "base_sets", force: :cascade do |t|
     t.integer  "student_id"
@@ -57,23 +67,13 @@ ActiveRecord::Schema.define(version: 20150903174919) do
   add_index "lendings", ["person_type", "person_id"], name: "index_lendings_on_person_type_and_person_id"
 
   create_table "schools", force: :cascade do |t|
-    t.string   "name",                                null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "authentication_token"
+    t.string   "name",                            null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "encrypted_password", default: "", null: false
   end
 
   add_index "schools", ["name"], name: "index_schools_on_name", unique: true
-  add_index "schools", ["reset_password_token"], name: "index_schools_on_reset_password_token", unique: true
 
   create_table "students", force: :cascade do |t|
     t.integer  "school_id"
