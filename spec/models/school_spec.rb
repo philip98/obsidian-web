@@ -12,13 +12,9 @@ RSpec.describe School, type: :model do
 	it {should have_many(:students)}
 	it {should have_many(:books)}
 	it {should have_many(:teachers)}
-
-	it 'is automatically creates a authentication_token' do
-		school = create(:school)
-		expect(school.authentication_token).to be
-		expect(school.authentication_token).not_to be_empty
-		school.destroy
-	end
+	it {should have_many(:aliases)}
+	it {should have_many(:base_sets)}
+	it {should have_many(:lendings)}
 
 	it 'automatically lower-cases its name' do
 		school = create(:school, :name => 'MGM')
