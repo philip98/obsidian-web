@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905022153) do
+ActiveRecord::Schema.define(version: 20150907153419) do
 
   create_table "aliases", force: :cascade do |t|
     t.string  "name",    null: false
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20150905022153) do
   end
 
   add_index "aliases", ["book_id"], name: "index_aliases_on_school_id_and_book_id"
-  add_index "aliases", ["name"], name: "index_aliases_on_school_id_and_name", unique: true
 
   create_table "authentication_tokens", force: :cascade do |t|
     t.integer  "school_id"
@@ -72,8 +71,6 @@ ActiveRecord::Schema.define(version: 20150905022153) do
     t.datetime "updated_at",                      null: false
     t.string   "encrypted_password", default: "", null: false
   end
-
-  add_index "schools", ["name"], name: "index_schools_on_name", unique: true
 
   create_table "students", force: :cascade do |t|
     t.integer  "school_id"
