@@ -1,15 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe TeachersController, type: :controller do
+RSpec.describe AliasesController, type: :controller do
 	before :all do
 		School.destroy_all
-		@a = create :school, :name => "TeachersController"
-		@b = create :school, :name => "OtherSchool"
-		@c = create :teacher, :school => @a
-		@d = create :teacher, :school => @b
+		@a = create :school, :name => 'AliasesController'
+		@b = create :school, :name => 'otherSchool'
+		@c = create :book, :school => @a
+		@d = create :book, :school => @b
+		@e = create :alias, :book => @c
+		@f = create :alias, :book => @d
 	end
 
 	after :all do
+		@f.destroy
+		@e.destroy
 		@d.destroy
 		@c.destroy
 		@b.destroy
@@ -34,30 +38,30 @@ RSpec.describe TeachersController, type: :controller do
 		get :index
 		body = JSON.parse(response.body)
 		expect(body['data'].length).to eq(1)
-		expect(body['data'][0]['id']).to eq(@c.id.to_s)
+		expect(body['data'][0]['id']).to eq(@e.id.to_s)
 	end
 
 	it 'is able to GET show' do
-		get :show, :id => @c.id
+		get :show, :id => @e.id
 		expect(response).to have_http_status(:ok)
 	end
 
 	it 'shows only authorised records' do
-		get :show, :id => @d.id
+		get :show, :id => @f.id
 		expect(response).to have_http_status(:not_found)
 	end
 
 	it 'is able to DELETE a record' do
 		expect{
-			delete :destroy, :id => @c.id
-		}.to change{Teacher.count}.by(-1)
+			delete :destroy, :id => @e.id
+		}.to change{Alias.count}.by(-1)
 		expect(response).to have_http_status(:no_content)
 	end
 
 	it 'destroys only authorised records' do
 		expect{
-			delete :destroy, :id => @d.id
-		}.not_to change{Teacher.count}
+			delete :destroy, :id => @f.id
+		}.not_to change{Alias.count}
 		expect(response).to have_http_status(:not_found)
 	end
 end

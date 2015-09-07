@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
 	before :all do
+		School.destroy_all
 		@a = create :school, :name => 'BooksController'
 		@b = create :school, :name => 'Other'
 		@c = create :book, :school => @a
@@ -47,12 +48,16 @@ RSpec.describe BooksController, type: :controller do
 	end
 
 	it 'is able to DELETE a record' do
-		delete :destroy, :id => @c.id
+		expect{
+			delete :destroy, :id => @c.id
+		}.to change{Book.count}.by(-1)
 		expect(response).to have_http_status(:no_content)
 	end
 
 	it 'destroys only authorised records' do
-		delete :destroy, :id => @d.id
+		expect{
+			delete :destroy, :id => @d.id
+		}.not_to change{Book.count}
 		expect(response).to have_http_status(:not_found)
 	end
 end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StudentsController, type: :controller do
 	before :all do
+		School.destroy_all
 		@school = create :school, :name => 'StudentsController'
 		@a = create :school, :name => 'DifferentSchool'
 		@b = create :student, :school => @school
@@ -46,13 +47,34 @@ RSpec.describe StudentsController, type: :controller do
 		expect(response).to have_http_status(:not_found)
 	end
 
+#	it 'is able to create a record' do
+#		record = {
+#			'type' => 'students',
+#			'attributes' => {
+#				'name' => 'Ph Sc',
+#				'graduation_year' => '2016',
+#				'class_letter' => ''
+#			}
+#		}
+#		@request.env['Content-Type'] = 'application/vnd.api+json'
+#		@request.env['Accept'] = 'application/vnd.api+json'
+#		expect {
+#			post :create, :data => paramify_values(record)
+#		}.to change{Student.count}.by(1)
+#		expect(response).to have_http_status(:created) 
+#	end
+
 	it 'is able to DELETE a record' do
-		delete :destroy, :id => @b.id
+		expect{
+			delete :destroy, :id => @b.id
+		}.to change{Student.count}.by(-1)
 		expect(response).to have_http_status(:no_content)
 	end
 
 	it 'destroys only authorised records' do
-		delete :destroy, :id => @c.id
+		expect{
+			delete :destroy, :id => @c.id
+		}.not_to change{Student.count}
 		expect(response).to have_http_status(:not_found)
 	end
 end
