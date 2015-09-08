@@ -47,22 +47,39 @@ RSpec.describe StudentsController, type: :controller do
 		expect(response).to have_http_status(:not_found)
 	end
 
-#	it 'is able to create a record' do
-#		record = {
-#			'type' => 'students',
-#			'attributes' => {
-#				'name' => 'Ph Sc',
-#				'graduation_year' => '2016',
-#				'class_letter' => ''
-#			}
-#		}
-#		@request.env['Content-Type'] = 'application/vnd.api+json'
-#		@request.env['Accept'] = 'application/vnd.api+json'
-#		expect {
-#			post :create, :data => paramify_values(record)
-#		}.to change{Student.count}.by(1)
-#		expect(response).to have_http_status(:created) 
-#	end
+	it 'is able to create a record' do
+		record = {'data' => {
+			'type' => 'students',
+			'attributes' => {
+				'name' => 'Ph Sc',
+				'graduation_year' => 2016,
+				'class_letter' => ''
+			}
+		}}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		expect {
+			post :create, paramify_values(record)
+			expect(@response).to have_http_status(:created) 
+		}.to change{Student.count}.by(1)
+	end
+
+	it 'is able to update a record' do
+		data = {
+			:data => {
+				:type => :students,
+				:id => @b.id,
+				:attributes => {
+					:name => 'abc'
+				}
+			},
+			:id => @b.id
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		patch :update, data
+		expect(@response).to have_http_status(:ok)
+	end
 
 	it 'is able to DELETE a record' do
 		expect{

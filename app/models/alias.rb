@@ -1,5 +1,6 @@
 class Alias < ActiveRecord::Base
 	belongs_to :book
+	has_one :school, :through => :book
 
 	validates :name, :presence => true
 	validates :book, :presence => true

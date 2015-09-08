@@ -47,6 +47,40 @@ RSpec.describe TeachersController, type: :controller do
 		expect(response).to have_http_status(:not_found)
 	end
 
+	it 'is able to create a record' do
+		data = {
+			:data => {
+				:type => :teachers,
+				:attributes => {
+					:name => 'abcd'
+				}
+			}
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		expect{
+			post :create, data
+			expect(@response).to have_http_status(:created)
+		}.to change{Teacher.count}.by(1)
+	end
+
+	it 'is able to update a record' do
+		data = {
+			:data => {
+				:type => :teachers,
+				:id => @c.id,
+				:attributes => {
+					:name => 'asfbf'
+				}
+			},
+			:id => @c.id
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		patch :update, data
+		expect(@response).to have_http_status(:ok)
+	end
+
 	it 'is able to DELETE a record' do
 		expect{
 			delete :destroy, :id => @c.id

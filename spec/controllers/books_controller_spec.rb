@@ -47,6 +47,42 @@ RSpec.describe BooksController, type: :controller do
 		expect(response).to have_http_status(:not_found)
 	end
 
+	it 'is able to create a record' do
+		data = {
+			:data => {
+				:type => :books,
+				:attributes => {
+					:isbn => '8237682734683',
+					:title => 'aasfh',
+					:form => 8
+				}
+			}
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		expect{
+			post :create, data
+			expect(@response).to have_http_status(:created)
+		}.to change{Book.count}.by(1)
+	end
+
+	it 'is able to update a record' do
+		data = {
+			:data => {
+				:type => :books,
+				:id => @c.id,
+				:attributes => {
+					:form => 10
+				}
+			},
+			:id => @c.id
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		patch :update, data
+		expect(@response).to have_http_status(:ok)
+	end
+
 	it 'is able to DELETE a record' do
 		expect{
 			delete :destroy, :id => @c.id

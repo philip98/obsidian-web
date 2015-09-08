@@ -51,6 +51,50 @@ RSpec.describe AliasesController, type: :controller do
 		expect(response).to have_http_status(:not_found)
 	end
 
+	it 'is able to create a record' do
+		data = {
+			:data => {
+				:type => :aliases,
+				:attributes => {
+					:name => 'ljwef',
+				},
+				:relationships => {
+					:book => {
+						:data => {
+							:type => :books,
+							:id => @c.id
+						}
+					}
+				}
+			}
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		expect{
+			post :create, data
+			Rails.logger.debug @response.body
+			expect(@response).to have_http_status(:created)
+		}.to change{Alias.count}.by(1)
+	end
+
+	it 'is able to update a record' do
+		data = {
+			:data => {
+				:type => :aliases,
+				:id => @e.id,
+				:attributes => {
+					:name => 'lefasefg'
+				}
+			},
+			:id => @e.id
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		patch :update, data
+		Rails.logger.debug @response.body
+		expect(@response).to have_http_status(:ok)
+	end
+
 	it 'is able to DELETE a record' do
 		expect{
 			delete :destroy, :id => @e.id
