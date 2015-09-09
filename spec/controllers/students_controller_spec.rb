@@ -19,8 +19,7 @@ RSpec.describe StudentsController, type: :controller do
 	end
 
 	after :all do
-		@c.destroy
-		@b.destroy
+		Student.destroy_all
 		@a.destroy
 		@school.destroy
 	end
@@ -77,21 +76,45 @@ RSpec.describe StudentsController, type: :controller do
 		}
 		@request.accept = 'application/vnd.api+json'
 		@request.headers['Content-Type'] = 'application/vnd.api+json'
-		patch :update, data
-		expect(@response).to have_http_status(:ok)
+		expect{
+			patch :update, data
+			expect(@response).to have_http_status(:ok)
+			@b.reload
+		}.to change{@b.name}
+	end
+
+	it 'is not able to update a different school\'s record' do
+		data = {
+			:data => {
+				:type => :students,
+				:id => @c.id,
+				:attributes => {
+					:graduation_year => 2017,
+					:class_letter => 'a'
+				}
+			},
+			:id => @c.id
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		expect{
+			patch :update, data
+			expect(@response).to have_http_status(:not_found)
+			@c.reload
+		}.not_to change{@c.graduation_year.to_s + @c.class_letter}
 	end
 
 	it 'is able to DELETE a record' do
 		expect{
 			delete :destroy, :id => @b.id
+			expect(response).to have_http_status(:no_content)
 		}.to change{Student.count}.by(-1)
-		expect(response).to have_http_status(:no_content)
 	end
 
 	it 'destroys only authorised records' do
 		expect{
 			delete :destroy, :id => @c.id
+			expect(response).to have_http_status(:not_found)
 		}.not_to change{Student.count}
-		expect(response).to have_http_status(:not_found)
 	end
 end

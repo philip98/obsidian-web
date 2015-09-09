@@ -12,8 +12,7 @@ RSpec.describe AliasesController, type: :controller do
 	end
 
 	after :all do
-		@f.destroy
-		@e.destroy
+		Alias.destroy_all
 		@d.destroy
 		@c.destroy
 		@b.destroy
@@ -72,7 +71,6 @@ RSpec.describe AliasesController, type: :controller do
 		@request.headers['Content-Type'] = 'application/vnd.api+json'
 		expect{
 			post :create, data
-			Rails.logger.debug @response.body
 			expect(@response).to have_http_status(:created)
 		}.to change{Alias.count}.by(1)
 	end
@@ -90,22 +88,44 @@ RSpec.describe AliasesController, type: :controller do
 		}
 		@request.accept = 'application/vnd.api+json'
 		@request.headers['Content-Type'] = 'application/vnd.api+json'
-		patch :update, data
-		Rails.logger.debug @response.body
-		expect(@response).to have_http_status(:ok)
+		expect{
+			patch :update, data
+			expect(@response).to have_http_status(:ok)
+			@e.reload
+		}.to change{@e.name}
+	end
+
+	it 'is not able to change a different school\'s record' do
+		data = {
+			:data => {
+				:type => :aliases,
+				:id => @f.id,
+				:attributes => {
+					:name => 'eosfijsflji'
+				}
+			},
+			:id => @f.id
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		expect{
+			patch :update, data
+			expect(@response).to have_http_status(:not_found)
+			@f.reload
+		}.not_to change{@f.name}
 	end
 
 	it 'is able to DELETE a record' do
 		expect{
 			delete :destroy, :id => @e.id
+			expect(response).to have_http_status(:no_content)
 		}.to change{Alias.count}.by(-1)
-		expect(response).to have_http_status(:no_content)
 	end
 
 	it 'destroys only authorised records' do
 		expect{
 			delete :destroy, :id => @f.id
+			expect(response).to have_http_status(:not_found)
 		}.not_to change{Alias.count}
-		expect(response).to have_http_status(:not_found)
 	end
 end

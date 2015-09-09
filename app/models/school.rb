@@ -12,4 +12,7 @@ class School < ActiveRecord::Base
 
 	validates :name, :presence => true, :uniqueness => true
 	validates :encrypted_password, :presence => true
+
+	alias :school_id :id
+	alias :school_id= :id=
 end

@@ -10,8 +10,7 @@ RSpec.describe BooksController, type: :controller do
 	end
 
 	after :all do
-		@d.destroy
-		@c.destroy
+		Book.destroy_all
 		@b.destroy
 		@a.destroy
 	end
@@ -79,21 +78,44 @@ RSpec.describe BooksController, type: :controller do
 		}
 		@request.accept = 'application/vnd.api+json'
 		@request.headers['Content-Type'] = 'application/vnd.api+json'
-		patch :update, data
-		expect(@response).to have_http_status(:ok)
+		expect{
+			patch :update, data
+			expect(@response).to have_http_status(:ok)
+			@c.reload
+		}.to change{@c.form}
+	end
+
+	it 'is not able to update a different school\'s record' do
+		data = {
+			:data => {
+				:type => :books,
+				:id => @d.id,
+				:attributes => {
+					:title => 'sufdhksdf'
+				}
+			},
+			:id => @d.id
+		}
+		@request.accept = 'application/vnd.api+json'
+		@request.headers['Content-Type'] = 'application/vnd.api+json'
+		expect{
+			patch :update, data
+			expect(@response).to have_http_status(:not_found)
+			@d.reload
+		}.not_to change{@d.title}
 	end
 
 	it 'is able to DELETE a record' do
 		expect{
 			delete :destroy, :id => @c.id
+			expect(@response).to have_http_status(:no_content)
 		}.to change{Book.count}.by(-1)
-		expect(response).to have_http_status(:no_content)
 	end
 
 	it 'destroys only authorised records' do
 		expect{
 			delete :destroy, :id => @d.id
+			expect(@response).to have_http_status(:not_found)
 		}.not_to change{Book.count}
-		expect(response).to have_http_status(:not_found)
 	end
 end

@@ -10,7 +10,11 @@ class BaseResource < JSONAPI::Resource
 
 	class << self 
 		def records(options = {})
-			options[:context][:current_school].public_send(_model_name.tableize)
+			if options[:context][:current_school]
+				options[:context][:current_school].public_send(_model_name.tableize)
+			else
+				_model_class.none
+			end
 		end
 	end
 end
