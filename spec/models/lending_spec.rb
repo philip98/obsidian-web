@@ -34,4 +34,21 @@ RSpec.describe Lending, type: :model do
 		b.destroy
 		a.destroy
 	end
+
+	it 'allows a person to lend a book multiple times' do
+		a = create :school
+		b = create :student, :school => a
+		c = create :teacher, :school => a
+		d = create :book, :school => a
+		e = create :lending, :person => b, :book => d
+		f = create :lending, :person => c, :book => d
+		expect(build(:lending, :person => b, :book => d)).to be_valid
+		expect(build(:lending, :person => c, :book => d)).to be_valid
+		f.destroy
+		e.destroy
+		d.destroy
+		c.destroy
+		b.destroy
+		a.destroy
+	end
 end

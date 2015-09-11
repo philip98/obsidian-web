@@ -28,4 +28,16 @@ RSpec.describe BaseSet, type: :model do
 		b.destroy
 		a.destroy
 	end
+
+	it 'forbids that a student lend a book multiple times' do
+		a = create :school
+		b = create :student, :school => a
+		c = create :book, :school => a
+		d = create :base_set, :student => b, :book => c
+		expect(build(:base_set, :student => b, :book => c)).not_to be_valid
+		d.destroy
+		c.destroy
+		b.destroy
+		a.destroy
+	end
 end

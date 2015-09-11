@@ -4,6 +4,7 @@ class BaseSet < ActiveRecord::Base
 
 	validates :student, :presence => true
 	validates :book, :presence => true
+	validates :book, :uniqueness => {:scope => :student_id}
 	validate :used_by_school
 
 	def used_by_school
