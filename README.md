@@ -67,8 +67,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-	"name": [the school's name],
-	"password": [the school's password]
+	"name": "[the school's name]",
+	"password": "[the school's password]"
 }
 ```
 
@@ -79,8 +79,8 @@ HTTP/1.1 201 CREATED
 Content-Type: application/json
 
 {
-	token: [the secret token],
-	secret_id: [the token's id]
+	"token": "[secret token]",
+	"secret_id": "[secret id]"
 }
 ```
 
