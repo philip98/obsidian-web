@@ -4,6 +4,7 @@ class BookResource < BaseResource
 	has_many :aliases
 	has_many :lendings
 	has_many :base_sets
+	has_one :school
 
-	filter :form
+	filters :form, :isbn
 end

@@ -1,6 +1,10 @@
 class SchoolResource < JSONAPI::Resource
 	attributes :name, :password
 
+	has_many :students
+	has_many :books
+	has_many :teachers
+
 	def fetchable_fields
 		super - [:password]
 	end
