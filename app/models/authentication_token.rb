@@ -18,7 +18,7 @@ class AuthenticationToken < ActiveRecord::Base
 	end
 
 	def has_secret?(secret)
-		BCrypt::Password.new(secret) == hashed_secret
+		Devise::Encryptor.compare(Devise, hashed_secret, secret)
 	end
 
 	private
@@ -30,10 +30,6 @@ class AuthenticationToken < ActiveRecord::Base
 
 		def generate_secret
 			self.secret = SecureRandom.urlsafe_base64 32
-			self.hashed_secret = BCrypt::Password.create(secret, :cost => cost)
-		end
-
-		def cost
-			Rails.env.test? ? 1 : 10
+			self.hashed_secret = Devise::Encryptor.digest(Devise, secret)
 		end
 end

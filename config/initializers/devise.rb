@@ -99,7 +99,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = '0f60a6290de9410205580d0930ecdb0c2f199a99e148db9153936830c094dad3121c4e32ed9ebba245d60aefea9bfefb8c2feeab2716f4b53de094a035d644bd'
+  config.pepper = '0f60a6290de9410205580d0930ecdb0c2f199a99e148db9153936830c094dad3121c4e32ed9ebba245d60aefea9bfefb8c2feeab2716f4b53de094a035d644bd'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -189,6 +189,7 @@ Devise.setup do |config|
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
   config.reset_password_within = 6.hours
+  config.parent_controller = "ActionController::Base"
 
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
@@ -227,7 +228,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ['*/*', :html]
+  config.navigational_formats = ['*/*', :html, :json]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete

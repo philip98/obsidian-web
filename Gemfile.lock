@@ -181,7 +181,6 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rails_12factor
   rspec-rails (~> 3.3.0)
-  rspec_api_documentation
   shoulda-matchers
   spring
   spring-commands-rspec
