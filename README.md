@@ -87,7 +87,7 @@ Content-Type: application/json
 The secret token along with its id has to be included in every request's `Authorization` header like this:
 
 ```http
-Authorization: Token [secret token] [secret id]
+Authorization: Token token=[secret token] secret_id=[secret id]
 ```
 
 This way, the API can ensure, that only authorised users may access data.
