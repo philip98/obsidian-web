@@ -19,7 +19,8 @@ class SessionsController < Devise::SessionsController
 				sign_in(resource_name, resource)
 				data = {
 					:token => token.secret,
-					:secret_id => token.secret_id
+					:secret_id => token.secret_id,
+					:school_id => self.resource.id
 				}
 				render :json => data, :status => :created
 			end
