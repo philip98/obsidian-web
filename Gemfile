@@ -7,6 +7,7 @@ gem 'jsonapi-resources', :git => 'https://github.com/cerebris/jsonapi-resources'
 gem 'rspec-rails', '~> 3.3.0'
 gem 'spring-commands-rspec', :platform => :ruby
 gem 'devise'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
 	gem 'byebug'
