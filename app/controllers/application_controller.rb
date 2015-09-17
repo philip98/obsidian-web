@@ -16,9 +16,9 @@ class ApplicationController < JSONAPI::ResourceController
 				secret_id = options[:secret_id]
 				logger.debug "secret_id: #{secret_id}"
 				logger.debug "secret: #{token}"
-				current_token = Authentication_token.find_authenticated :secret_id => secret_id, :secret => token
+				current_token = AuthenticationToken.find_authenticated :secret_id => secret_id, :secret => token
 				if current_token
-					sign_in token.school
+					sign_in current_token.school
 				else
 					nil
 				end

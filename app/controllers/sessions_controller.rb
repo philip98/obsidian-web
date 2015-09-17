@@ -1,30 +1,23 @@
 class SessionsController < Devise::SessionsController
 	respond_to :json
-	prepend_before_filter :require_no_authentication, :only => :create
 
 	def new
 	end
 
 	def create
-		respond_to do |format|
-			format.json do
-				logger.debug "name: #{params['name']}"
-				logger.debug "pw: #{params['password']}"
-				self.resource = School.find_by_name(params['name'])
-				unless resource && params['password'] && Devise::Encryptor.compare(Devise, 
-					resource.encrypted_password, params['password'])
-					return failure
-				end
-				token = AuthenticationToken.create(:school => resource)
-				sign_in(resource_name, resource)
-				data = {
-					:token => token.secret,
-					:secret_id => token.secret_id,
-					:school_id => self.resource.id
-				}
-				render :json => data, :status => :created
-			end
+		self.resource = School.find_by_name(params['name'].downcase)
+		unless resource && params['password'] && Devise::Encryptor.compare(Devise, 
+			resource.encrypted_password, params['password'])
+			return failure
 		end
+		token = AuthenticationToken.create(:school => resource)
+		sign_in(resource_name, resource)
+		data = {
+			:token => token.secret,
+			:secret_id => token.secret_id,
+			:school_id => self.resource.id
+		}
+		render :json => data, :status => :created
 	end
 
 	def destroy
