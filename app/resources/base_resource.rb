@@ -2,10 +2,12 @@ class BaseResource < JSONAPI::Resource
 	abstract
 
 	before_create do
-		@model.school ||= context[:current_school]
-		if @model.school != context[:current_school]
-			fail JSONAPI::Exceptions::InvalidFieldValue('school', @model.school_id)
-		end		
+		if @model.class.instance_methods.include? :school
+			@model.school ||= context[:current_school]
+			if @model.school != context[:current_school]
+				fail JSONAPI::Exceptions::InvalidFieldValue('school', @model.school_id)
+			end
+		end	
 	end
 
 	class << self 

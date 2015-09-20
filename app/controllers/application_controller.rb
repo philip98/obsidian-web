@@ -4,6 +4,7 @@ class ApplicationController < JSONAPI::ResourceController
 	protect_from_forgery with: :null_session
 	prepend_before_filter :authenticate_from_token!
 #	before_filter :authenticate_school!
+	@@current_school ||= nil
 
 	def context
 		{:current_school => current_school || @@current_school}

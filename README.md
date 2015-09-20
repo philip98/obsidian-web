@@ -6,9 +6,11 @@ library of a secondary school.
 This repo holds the JSON-API compliant backend.
 
 ##Models
+All model names, as well as attribute/relationship/link/etc. names, are supposed to be dasherised,
+i.e. `baseSet` is accessed via the url `/base-sets`.
 ###School
 - `name` (String) is the school's login name (and is case-insensitive)
-- `encrypted_password` (String) holds the hashed password
+- `encrypted-password` (String) holds the hashed password
 
 When creating a school, only `name` and `password` should be provided. The password is automatically encrypted
 and stored in `encrypted_password`.
@@ -42,7 +44,7 @@ Aliases are an easy way to enter books whose isbn you don't know by heart. Just 
 ###BaseSet
 - `student` (Relationship)
 - `book` (Relationship)
-- `created_at` (DateTime)
+- `created-at` (DateTime)
 
 `BaseSet`s are lendings that occur at the end and beginning of term to provide students with their books they
 usually use. More rigorously: `BaseSet`s are all the lendings that cause school reports to be withheld. A student
@@ -51,7 +53,7 @@ can only have one instance of a book as `BaseSet` at a time.
 ###Lendings
 - `person` (Polymorphic relationship to either `Student` or `Teacher`)
 - `book` (Relationship)
-- `created_at` (DateTime)
+- `created-at` (DateTime)
 
 `Lending`s are all other lendings (e.g. "Ferienausleihen") that do *not* cause school reports to be withheld.
 `Lending`s can be made by either students or teachers (hence the polymorphic relationship) and are, contrary 

@@ -51,8 +51,8 @@ RSpec.describe StudentsController, type: :controller do
 			'type' => 'students',
 			'attributes' => {
 				'name' => 'Ph Sc',
-				'graduation_year' => 2016,
-				'class_letter' => ''
+				'graduation-year' => 2016,
+				'class-letter' => ''
 			}
 		}}
 		@request.accept = 'application/vnd.api+json'
@@ -89,8 +89,8 @@ RSpec.describe StudentsController, type: :controller do
 				:type => :students,
 				:id => @c.id,
 				:attributes => {
-					:graduation_year => 2017,
-					:class_letter => 'a'
+					'graduation-year' => 2017,
+					'class-letter' => 'a'
 				}
 			},
 			:id => @c.id
