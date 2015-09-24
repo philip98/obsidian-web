@@ -3,4 +3,6 @@ class BaseSetResource < BaseResource
 
 	has_one :student
 	has_one :book
+
+	filters :student_id, :book_id
 end

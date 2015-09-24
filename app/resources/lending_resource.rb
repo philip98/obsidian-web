@@ -4,5 +4,5 @@ class LendingResource < BaseResource
 	has_one :person, :polymorphic => true
 	has_one :book
 
-	filters :person, :book
+	filters :person_id, :person_type, :book_id
 end
