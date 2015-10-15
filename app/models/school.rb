@@ -9,6 +9,7 @@ class School < ActiveRecord::Base
 	has_many :aliases, :through => :books
 	has_many :base_sets, :through => :books
 	has_many :lendings, :through => :books
+	has_many :authentication_tokens, :dependent => :destroy
 
 	validates :name, :presence => true, :uniqueness => true
 	validates :encrypted_password, :presence => true
