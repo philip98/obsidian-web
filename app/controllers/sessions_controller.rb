@@ -6,11 +6,12 @@ class SessionsController < Devise::SessionsController
 
 	def create
 		self.resource = School.find_by_name(params['name'].downcase)
-		unless resource && params['password'] && Devise::Encryptor.compare(Devise, 
+		unless resource && params['password'] && Devise::Encryptor.compare(Devise,
 			resource.encrypted_password, params['password'])
 			return failure
 		end
 		token = AuthenticationToken.create(:school => resource)
+		AuthenticationToken.where('created_at < ?', 1.day.ago).destroy_all
 		sign_in(resource_name, resource)
 		data = {
 			:token => token.secret,
