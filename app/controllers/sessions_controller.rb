@@ -1,5 +1,6 @@
 class SessionsController < Devise::SessionsController
 	respond_to :json
+	skip_before_filter :verify_signed_out_user
 
 	def new
 	end
@@ -22,12 +23,12 @@ class SessionsController < Devise::SessionsController
 	end
 
 	def destroy
-		super do
-			t = AuthenticationToken.find_by(:secret_id => ActionController::HttpAuthentication::Token.token_and_options(request)[1][:secret_id])
-			t.destroy if t
-			AuthenticationToken.where('created_at < ?', 1.day.ago).destroy_all
-			render :nothing => true, :status => :ok and return
-		end
+		token = ActionController::HttpAuthentication::Token.token_and_options(request)
+		t = AuthenticationToken.find_authenticated :secret_id => token[1][:secret_id],
+			:secret => token[0]
+		t.destroy if t
+		AuthenticationToken.where('created_at < ?', 1.day.ago).destroy_all
+		render :nothing => true, :status => :ok and return
 	end
 
 	def failure
