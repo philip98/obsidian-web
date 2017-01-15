@@ -4,7 +4,7 @@ ruby '2.3.1'
 gem 'rails', '~> 4.2.0'
 gem 'puma'
 gem 'bcrypt'
-gem 'jsonapi-resources', :git => 'https://github.com/cerebris/jsonapi-resources', :branch => 'master'
+gem 'jsonapi-resources'
 gem 'rspec-rails', '~> 3.3.0'
 gem 'spring-commands-rspec', :platform => :ruby
 gem 'devise'
