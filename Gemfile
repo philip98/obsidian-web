@@ -19,5 +19,5 @@ group :development, :test do
 end
 
 group :production do
-	gem 'pg'
+	gem 'mysql2'
 end
